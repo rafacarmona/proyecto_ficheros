@@ -1,5 +1,7 @@
 package proyecto_sillero.vista;
 
+import proyecto_sillero.controlador.CtrlVerClientesCargados;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -11,7 +13,7 @@ package proyecto_sillero.vista;
  * @author Rafa
  */
 public class VistaJDVerClientesCargados extends javax.swing.JDialog {
-
+    private CtrlVerClientesCargados CtrlClientesCargados;
     /**
      * Creates new form VistaJDVerClientesCargados
      */
@@ -118,4 +120,13 @@ public class VistaJDVerClientesCargados extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableClientesCargados;
     // End of variables declaration//GEN-END:variables
+
+    public void setCtrlClientesCargados(CtrlVerClientesCargados CtrlClientesCargados) {
+        this.CtrlClientesCargados = CtrlClientesCargados;
+    }
+
+    public javax.swing.JTable getjTableClientesCargados() {
+        return jTableClientesCargados;
+    }
+   
 }

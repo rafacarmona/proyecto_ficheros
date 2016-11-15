@@ -40,8 +40,7 @@ public class FicherosEscriturayLectura {
         listaDeClientes = new ArrayList<Clientes>();
         listaDeTrabajadores = new ArrayList<Trabajador>();
     }
-    
-    
+
     private static FicherosEscriturayLectura ficherosEscritura = null;
 
     public static FicherosEscriturayLectura devolverFicherosEscritura() {
@@ -195,11 +194,11 @@ public class FicherosEscriturayLectura {
          * Int para enteros, etc. Aqui escribiremos lo que queremos que escriba
          * (guarde) en el fichero:
          */
-        for(Clientes c: listaDeClientes){
-        dos.writeUTF(c.getNombre());
-        dos.writeUTF(c.getDNI());
-        dos.writeInt(c.getNHabitacion());
-        dos.writeInt(c.getNNoches()); 
+        for (Clientes c : listaDeClientes) {
+            dos.writeUTF(c.getNombre());
+            dos.writeUTF(c.getDNI());
+            dos.writeInt(c.getNHabitacion());
+            dos.writeInt(c.getNNoches());
         }
 
         dos.close(); //Cerramos la clase printWriter
@@ -432,7 +431,7 @@ public class FicherosEscriturayLectura {
      */
     public String[] leerDirectorio() {
         File rutaPrincipal = new File("./Hoteles");
-        
+
         File[] listaDeDirectorios = rutaPrincipal.listFiles();
         int contadorDeDirectorios = 0;
         String[] listaDeHoteles;
@@ -453,7 +452,8 @@ public class FicherosEscriturayLectura {
 
         return listaDeHoteles;
     }
-    public void crearDirectorioPrincipal(){
+
+    public void crearDirectorioPrincipal() {
         File rutaPrincipal = new File("./Hoteles");
         rutaPrincipal.mkdir();
     }
@@ -489,7 +489,7 @@ public class FicherosEscriturayLectura {
          * fichero. Con writeObject escribimos el objeto.
          */
         ObjectInputStream ois = new ObjectInputStream(new FileInputStream(archivo));
-       
+
         //probar el removeAll
         listaDeClientes.removeAll(listaDeClientes);
         listaDeClientes = (ArrayList< Clientes>) ois.readObject();
@@ -561,11 +561,13 @@ public class FicherosEscriturayLectura {
         //Aqui escribiremos lo que queremos que lea el fichero.
         //listaDeClientes.removeAll(listaDeClientes);
         String cadenaClientes = br.readLine();
+                 listaDeClientes.removeAll(listaDeClientes);
         while (cadenaClientes != null) {
             // guardamos cada dato del cliente en un array.
             String[] arrayDatosClientes = cadenaClientes.split("\\|");
             Clientes a = new Clientes(arrayDatosClientes[0], arrayDatosClientes[1], Integer.parseInt(arrayDatosClientes[2]), Integer.parseInt(arrayDatosClientes[3]));
             //lo añadimos
+   
             listaDeClientes.add(a);
             cadenaClientes = br.readLine();
         }
@@ -642,16 +644,60 @@ public class FicherosEscriturayLectura {
             archivo.createNewFile();
         }
         /**
-         * DataInputStream lee como ficheros de datos. llama a la clase con
-         * la que escribiremos en un fichero binario.
+         * DataInputStream lee como ficheros de datos. llama a la clase con la
+         * que escribiremos en un fichero binario.
          */
         fis = new FileInputStream(archivo);
         DataInputStream dis = new DataInputStream(fis);
-        while( dis.available() > 0 ){
+        listaDeClientes.removeAll(listaDeClientes);
+        while (dis.available() > 0) {
             String nombreCliente = dis.readUTF();
             String DNI = dis.readUTF();
             int nHabitacion = dis.readInt();
             int nNoches = dis.readInt();
+            Clientes a = new Clientes(nombreCliente, DNI, nHabitacion, nNoches);
+            //lo añadimos
+            
+            listaDeClientes.add(a);
+        }
+        dis.close();
+
+    }
+
+    /**
+     *
+     * @param nombreFichero
+     * @throws IOException
+     */
+    public void leerFicherosDatTrabajadores(String nombreFichero) throws IOException {
+        /**
+         * Declaramos todos los Ficheros. con el mkdir creamos el directorio.
+         * Con el createNewFile creamos el Fichero
+         */
+        File rutaPrincipal = new File("./Hoteles");
+        File subruta = new File("./Hoteles/" + nombreFichero);
+        File archivo = new File("./Hoteles/" + nombreFichero + "/" + nombreFichero + "Trabajadores.dat");
+        FileInputStream fis;
+        if (!rutaPrincipal.exists()) {
+            rutaPrincipal.mkdir();
+            subruta.mkdir();
+        } else {
+            subruta.mkdir();
+        }
+
+        if (!archivo.exists()) {
+            archivo.createNewFile();
+        }
+        /**
+         * DataInputStream lee como ficheros de datos. llama a la clase con la
+         * que escribiremos en un fichero binario.
+         */
+        fis = new FileInputStream(archivo);
+        DataInputStream dis = new DataInputStream(fis);
+        while (dis.available() > 0) {
+            String nombreCliente = dis.readUTF();
+            String DNI = dis.readUTF();
+            String ocupacion = dis.readUTF();
         }
         dis.close();
 

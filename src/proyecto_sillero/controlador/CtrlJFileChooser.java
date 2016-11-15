@@ -37,10 +37,10 @@ public class CtrlJFileChooser {
         chooser.setFileFilter(filtroXML);
         int result = chooser.showOpenDialog(chooser);
         chooser.setVisible(true);
-        String nombre = chooser.getSelectedFile().getName().toString();
         //Esto borrar luego, es para prueba.
         switch (result) {
             case JFileChooser.CANCEL_OPTION:
+                System.out.println();
                 break;
             case JFileChooser.APPROVE_OPTION:
                 leerFicheroSegunExtension();
@@ -70,37 +70,20 @@ public class CtrlJFileChooser {
         String trabajadorOclientesSinExtension = nombre.substring((nombre.length() - 12), (nombre.length() - 4));
         //Con esto sacamos la extension del fichero
         String extension = nombre.substring(nombre.length() - 4);
-        System.out.println(extension);
-        System.out.println(nombre.substring(0,nombre.length()-12));
         //Hacemos un switch en el que comprobaremos si es Cliente o trabajador. Dentro otro switch que compruebe la extension.
         switch (trabajadorOclientesSinExtension) {
             case "Clientes":
                 switch (extension) {
-                    case ".dat": {
-                        try {
-                            FicherosEscriturayLectura.devolverFicherosEscritura().leerFicherosDatClientes(nombreFichero);
-                        } catch (IOException ex) {
-                            System.out.println("Error en .dat Clientes.");
-                        }
-                    }
+                    case ".dat": 
+                        new CtrlVerClientesCargados(nombreFichero, 2);
                     break;
-                    case ".txt": {
-                        try {
-                            FicherosEscriturayLectura.devolverFicherosEscritura().leerFicheroTxtClientes(nombreFichero);
-                        } catch (IOException ex) {
-                            System.out.println("Error en .txt Clientes.");
-                        }
-                    }
+                    case ".txt":
+                       new CtrlVerClientesCargados(nombreFichero, 1);
+                    
                     break;
-                    case ".obj": {
-                        try {
-                            FicherosEscriturayLectura.devolverFicherosEscritura().leerFicherosObjClientes(nombreFichero);
-                        } catch (IOException ex) {
-                            System.out.println("Error en .obj IO Clientes.");
-                        } catch (ClassNotFoundException ex) {
-                            System.out.println("Error en .obj CLASSNOTFOUND Clientes.");
-                        }
-                    }
+                    case ".obj": 
+                      new CtrlVerClientesCargados(nombreFichero, 0);
+                    
                     break;
                     case ".xml":
                         break;
