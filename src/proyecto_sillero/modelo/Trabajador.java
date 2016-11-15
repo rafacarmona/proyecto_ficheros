@@ -22,17 +22,13 @@ public class Trabajador implements Serializable{
    private String nombre;
    private String DNI;
    private String ocupacion;
-  // private ArrayList<Clientes> listaDeClientes;
+   private ArrayList<Clientes> listaDeClientes;
 
     public Trabajador(String nombre, String DNI, String ocupacion) {
         this.nombre = nombre;
         this.DNI = DNI;
         this.ocupacion = ocupacion;
-//        this.listaDeClientes = listaDeClientes;
-    }
-
-    public Trabajador(ArrayList<Clientes> listaDeClientes) {
-
+        this.listaDeClientes = listaDeClientes;
     }
 
     public String getNombre() {
@@ -57,6 +53,14 @@ public class Trabajador implements Serializable{
 
     public void setOcupacion(String ocupacion) {
         this.ocupacion = ocupacion;
+    }
+
+    public ArrayList<Clientes> getListaDeClientes() {
+        return listaDeClientes;
+    }
+
+    public void setListaDeClientes(ArrayList<Clientes> listaDeClientes) {
+        this.listaDeClientes = listaDeClientes;
     }
    
 }
