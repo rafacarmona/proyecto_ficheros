@@ -483,7 +483,6 @@ public class FicherosEscriturayLectura {
          * ObjectInputStream llama a la clase con la que leemos un objeto en un
          * fichero. Con writeObject escribimos el objeto.
          */
-         System.out.println(archivo);
         ObjectInputStream ois = new ObjectInputStream(new FileInputStream(archivo));
        
         //probar el removeAll
@@ -555,11 +554,11 @@ public class FicherosEscriturayLectura {
         fr = new FileReader(archivo);
         BufferedReader br = new BufferedReader(fr);
         //Aqui escribiremos lo que queremos que lea el fichero.
-        listaDeClientes.removeAll(listaDeClientes);
+        //listaDeClientes.removeAll(listaDeClientes);
         String cadenaClientes = br.readLine();
         while (cadenaClientes != null) {
             // guardamos cada dato del cliente en un array.
-            String[] arrayDatosClientes = cadenaClientes.split("|");
+            String[] arrayDatosClientes = cadenaClientes.split("\\|");
             Clientes a = new Clientes(arrayDatosClientes[0], arrayDatosClientes[1], Integer.parseInt(arrayDatosClientes[2]), Integer.parseInt(arrayDatosClientes[3]));
             //lo añadimos
             listaDeClientes.add(a);

@@ -457,4 +457,37 @@ public class VistaJDIntroducirTrabajadoresClientes extends javax.swing.JDialog {
     public javax.swing.JTextField getjTextFieldnNochesCliente() {
         return jTextFieldnNochesCliente;
     }
+
+    public javax.swing.JButton getjButtonPasarAEscribirCliente() {
+        return jButtonPasarAEscribirCliente;
+    }
+
+    public void setjButtonPasarAEscribirCliente(javax.swing.JButton jButtonPasarAEscribirCliente) {
+        this.jButtonPasarAEscribirCliente = jButtonPasarAEscribirCliente;
+    }
+
+    public javax.swing.JButton getjButtonPasarALeerCliente() {
+        return jButtonPasarALeerCliente;
+    }
+
+    public void setjButtonPasarALeerCliente(javax.swing.JButton jButtonPasarALeerCliente) {
+        this.jButtonPasarALeerCliente = jButtonPasarALeerCliente;
+    }
+
+    public javax.swing.JTable getjTableEscribirClientes() {
+        return jTableEscribirClientes;
+    }
+
+    public void setjTableEscribirClientes(javax.swing.JTable jTableEscribirClientes) {
+        this.jTableEscribirClientes = jTableEscribirClientes;
+    }
+
+    public javax.swing.JTable getjTableVerCliente() {
+        return jTableVerCliente;
+    }
+
+    public void setjTableVerCliente(javax.swing.JTable jTableVerCliente) {
+        this.jTableVerCliente = jTableVerCliente;
+    }
+    
 }

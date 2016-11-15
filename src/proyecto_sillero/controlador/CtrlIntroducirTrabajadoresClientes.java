@@ -8,6 +8,9 @@ package proyecto_sillero.controlador;
 import proyecto_sillero.vista.VistaJDIntroducirTrabajadoresClientes;
 import DAO.FicherosEscriturayLectura;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import proyecto_sillero.modelo.Clientes;
 
 /**
  *
@@ -17,11 +20,17 @@ public class CtrlIntroducirTrabajadoresClientes {
 
     private String nombreHotel;
     private VistaJDIntroducirTrabajadoresClientes vista;
+    private TableModelNoEditable IntroducirVerHoteles;
 
     public CtrlIntroducirTrabajadoresClientes(String nombreHotel) {
         this.nombreHotel = nombreHotel;
         this.vista = new VistaJDIntroducirTrabajadoresClientes(null, true);
         vista.setAnnadirClienteTrabajadorControlador(this);
+       //Creamos tableModel
+        IntroducirVerHoteles = new TableModelNoEditable();
+        vista.getjTableVerCliente().setModel(IntroducirVerHoteles);
+        CrearTablaCliente(IntroducirVerHoteles);
+        listarClientes(IntroducirVerHoteles);
         vista.setVisible(true);
     }
 
@@ -34,7 +43,7 @@ public class CtrlIntroducirTrabajadoresClientes {
         FicherosEscriturayLectura.devolverFicherosEscritura().escribirFicherosDatClientes(nombreHotel, nombreCliente, DNI, nHabitacion, nNoches);
         FicherosEscriturayLectura.devolverFicherosEscritura().escribirFicherosObjClientes(nombreHotel, nombreCliente, DNI, nHabitacion, nNoches);
         FicherosEscriturayLectura.devolverFicherosEscritura().leerFicheroTxtClientes(nombreHotel);
-       // FicherosEscriturayLectura.devolverFicherosEscritura().leerFicherosDatClientes(nombreHotel);
+
     }
 
     public void leerFichero() throws IOException, ClassNotFoundException {
@@ -50,5 +59,42 @@ public class CtrlIntroducirTrabajadoresClientes {
         FicherosEscriturayLectura.devolverFicherosEscritura().escribirFicherosDatTrabajadores(nombreHotel, nombreTrabajador, DNI, ocupacion);
         FicherosEscriturayLectura.devolverFicherosEscritura().escribirFicherosObjTrabajadores(nombreHotel, nombreTrabajador, DNI, ocupacion);
     }
+    
+    
+    //CARGAR TABLA TRABAJADOR
 
+     public void CrearTablaCliente(TableModelNoEditable modeloTabla) {
+        modeloTabla.addColumn("Clientetwrrerewrw");
+    }
+
+    /**
+     *Laa principal función de este metodo es rellenar la tabla con todos los hoteles existentes.
+     * Por parametro recibimos la tabla donde se rellenará.
+     * #tamañolistaHoteles devuelve el numero de directorios que hay para luego usarlo en el for.(es un limitador del for)
+     * Borra los registros que hay en la tabla y los vuelve a rellenar
+     * @param modeloTabla
+     */
+    public boolean listarClientes(TableModelNoEditable modeloTabla) {
+        //borra los registros de la tabla y los vuelve a rellenar
+        while (modeloTabla.getRowCount() > 0) {
+            modeloTabla.removeRow(0);
+        }
+        //Creamos numero de columnas que habrá:
+        Object[] columna = new Object[1];
+        
+        try {
+            FicherosEscriturayLectura.devolverFicherosEscritura().leerFicherosObjClientes(nombreHotel);
+            for(Clientes c: FicherosEscriturayLectura.devolverFicherosEscritura().getListaDeClientes()) {
+            columna[0]=c.getNombre();
+            modeloTabla.addRow(columna);
+        }
+        
+        } catch (IOException ex) {
+            return false;
+        } catch (ClassNotFoundException ex) {
+            return false;
+        }
+        
+        return true;
+    }
 }
