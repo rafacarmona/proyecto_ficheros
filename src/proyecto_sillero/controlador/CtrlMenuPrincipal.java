@@ -5,6 +5,7 @@
  */
 package proyecto_sillero.controlador;
 
+import DAO.FicherosEscriturayLectura;
 import proyecto_sillero.vista.VistaJFMenuPrincipal;
 /**
  *
@@ -15,6 +16,8 @@ public class CtrlMenuPrincipal {
     
     public CtrlMenuPrincipal(VistaJFMenuPrincipal menu) {
         this.menu = menu;
+        //Hacemos que cree la carpeta principal Hoteles al iniciarse el programa por si no existe.
+        FicherosEscriturayLectura.devolverFicherosEscritura().crearDirectorioPrincipal();
     }
     
     public void AbrirVisualizarHoteles() {

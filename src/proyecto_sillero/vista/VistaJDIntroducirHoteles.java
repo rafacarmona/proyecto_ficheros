@@ -80,7 +80,7 @@ private CtrlIntroducirHoteles introducirControlador;
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
         );
 
         jMenuAnnadirHotel.setText("Opciones");
@@ -125,7 +125,8 @@ private CtrlIntroducirHoteles introducirControlador;
     }//GEN-LAST:event_jMenuItemAñadirHotelActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-
+             
+             
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void jTableHotelesInsertarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableHotelesInsertarMouseClicked

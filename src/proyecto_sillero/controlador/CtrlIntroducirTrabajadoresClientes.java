@@ -8,8 +8,6 @@ package proyecto_sillero.controlador;
 import proyecto_sillero.vista.VistaJDIntroducirTrabajadoresClientes;
 import DAO.FicherosEscriturayLectura;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import proyecto_sillero.modelo.Clientes;
 
 /**
@@ -64,16 +62,15 @@ public class CtrlIntroducirTrabajadoresClientes {
     //CARGAR TABLA TRABAJADOR
 
      public void CrearTablaCliente(TableModelNoEditable modeloTabla) {
-        modeloTabla.addColumn("Clientetwrrerewrw");
+        modeloTabla.addColumn("Clientes");
     }
 
-    /**
-     *Laa principal función de este metodo es rellenar la tabla con todos los hoteles existentes.
-     * Por parametro recibimos la tabla donde se rellenará.
-     * #tamañolistaHoteles devuelve el numero de directorios que hay para luego usarlo en el for.(es un limitador del for)
-     * Borra los registros que hay en la tabla y los vuelve a rellenar
-     * @param modeloTabla
-     */
+     /**
+      * Como principal función, rellena la tabla con los nombres de los clientes. 
+      * Primero limpiamos la tabla. Luego creamos un objeto columna con el que solo recibirá un dato. Luego leerá los ficherosObjClientes e irá rellenando la tabla. retorna falso si falla.
+      * @param modeloTabla --> le pasamos la tabla.
+      * @return 
+      */
     public boolean listarClientes(TableModelNoEditable modeloTabla) {
         //borra los registros de la tabla y los vuelve a rellenar
         while (modeloTabla.getRowCount() > 0) {
@@ -97,4 +94,6 @@ public class CtrlIntroducirTrabajadoresClientes {
         
         return true;
     }
+    
+    
 }

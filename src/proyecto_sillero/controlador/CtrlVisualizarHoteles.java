@@ -50,7 +50,7 @@ public class CtrlVisualizarHoteles {
      * Borra los registros que hay en la tabla y los vuelve a rellenar
      * @param modeloTabla
      */
-    public void listarHoteles(TableModelNoEditable modeloTabla) {
+    public void listarHoteles(TableModelNoEditable modeloTabla) {       
         int tamañolistaHoteles = FicherosEscriturayLectura.devolverFicherosEscritura().leerDirectorio().length;
         //borra los registros de la tabla y los vuelve a rellenar
         while (modeloTabla.getRowCount() > 0) {
@@ -58,7 +58,7 @@ public class CtrlVisualizarHoteles {
         }
         //Creamos numero de columnas que habrá:
         Object[] columna = new Object[1];
-        for (int i = 0; i < tamañolistaHoteles; i++) {
+        for (int i = 0; i < tamañolistaHoteles; i++) {      
             columna[0] = FicherosEscriturayLectura.devolverFicherosEscritura().leerDirectorio()[i];
             modeloTabla.addRow(columna);
         }

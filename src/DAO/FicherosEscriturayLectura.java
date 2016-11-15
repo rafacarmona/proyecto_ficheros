@@ -432,6 +432,7 @@ public class FicherosEscriturayLectura {
      */
     public String[] leerDirectorio() {
         File rutaPrincipal = new File("./Hoteles");
+        
         File[] listaDeDirectorios = rutaPrincipal.listFiles();
         int contadorDeDirectorios = 0;
         String[] listaDeHoteles;
@@ -451,6 +452,10 @@ public class FicherosEscriturayLectura {
         }
 
         return listaDeHoteles;
+    }
+    public void crearDirectorioPrincipal(){
+        File rutaPrincipal = new File("./Hoteles");
+        rutaPrincipal.mkdir();
     }
 
     /**
