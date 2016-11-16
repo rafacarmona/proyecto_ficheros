@@ -213,6 +213,11 @@ public class VistaJDIntroducirTrabajadoresClientes extends javax.swing.JDialog {
         }
 
         jButtonPasarAEscribirCliente.setText(">>");
+        jButtonPasarAEscribirCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPasarAEscribirClienteActionPerformed(evt);
+            }
+        });
 
         jButtonPasarALeerCliente.setText("<<");
 
@@ -317,6 +322,7 @@ public class VistaJDIntroducirTrabajadoresClientes extends javax.swing.JDialog {
             try {
                 // TODO add your handling code here:
                 annadirClienteTrabajadorControlador.escribirCliente();
+                JOptionPane.showMessageDialog(null, "Introducido Con Éxito","Mensaje", INFORMATION_MESSAGE);
             } catch (ClassNotFoundException ex) {
                  JOptionPane.showMessageDialog(null, "Error OTRA VEZ.","ERROR", ERROR_MESSAGE);
             }
@@ -334,6 +340,7 @@ public class VistaJDIntroducirTrabajadoresClientes extends javax.swing.JDialog {
         try {
             // TODO add your handling code here:
             annadirClienteTrabajadorControlador.escribirTrabajador();
+            JOptionPane.showMessageDialog(null, "Introducido Con Éxito","Mensaje", INFORMATION_MESSAGE);
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Error al guardar los datos.","ERROR", ERROR_MESSAGE);
         } catch (ClassNotFoundException ex) {
@@ -348,6 +355,10 @@ public class VistaJDIntroducirTrabajadoresClientes extends javax.swing.JDialog {
     private void jTextFieldNombreTrabajadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreTrabajadorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldNombreTrabajadorActionPerformed
+
+    private void jButtonPasarAEscribirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPasarAEscribirClienteActionPerformed
+        annadirClienteTrabajadorControlador.pasarClientedeColumna();
+    }//GEN-LAST:event_jButtonPasarAEscribirClienteActionPerformed
 
     /**
      * @param args the command line arguments

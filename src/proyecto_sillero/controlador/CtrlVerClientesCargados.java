@@ -7,8 +7,6 @@ package proyecto_sillero.controlador;
 
 import DAO.FicherosEscriturayLectura;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import proyecto_sillero.modelo.Clientes;
 import proyecto_sillero.vista.VistaJDVerClientesCargados;
 
@@ -63,7 +61,17 @@ public class CtrlVerClientesCargados {
         modeloTabla.addColumn("Numero de habitación");
         modeloTabla.addColumn("Numero de noches");
     }
-    
+    /**
+     * INFORMACIÓN QUE CUBRE TODOS LOS MÉTODOS.
+     * Lo primero que hacemos es limpiar la tabla, luego creamos un array de objetos[4].
+     * Llamamos a la clase leerFicheroObjClientes, que nos cargará en memoria todos los clientes.
+     * Con foreach recorremos todos los objetos.
+     * Escribimos el array de objetos y lo añadimos a la Row.
+     */
+    /**
+     * ListarClientes con la extensión obj.
+     * @param modeloTabla 
+     */
     public void listarClientesObj(TableModelNoEditable modeloTabla){
         //borra los registros de la tabla y los vuelve a rellenar
         while(modeloTabla.getRowCount()>0){
@@ -72,12 +80,11 @@ public class CtrlVerClientesCargados {
         //Creamos numero de columnas que habrá:
         Object[] columna = new Object[4];
         try {
-            String nombre = "Nuevo Hotel";
-            FicherosEscriturayLectura.devolverFicherosEscritura().leerFicherosObjClientes(nombre);
+            FicherosEscriturayLectura.devolverFicherosEscritura().leerFicherosObjClientes(nombreFichero);
         } catch (IOException ex) {
-            System.out.println("Error al añadir cliente obj ioexception");
+            System.out.println("Error al añadir cliente obj");
         } catch (ClassNotFoundException ex) {
-             System.out.println("Erroaaaaaaaaaaaaaaaaaaaa");//cambiar luego
+             System.out.println("Error, Clase no encontrada.");//cambiar luego
         }
         for(Clientes c: FicherosEscriturayLectura.devolverFicherosEscritura().getListaDeClientes()){
             columna[0] = c.getNombre();
@@ -87,7 +94,10 @@ public class CtrlVerClientesCargados {
             modeloTabla.addRow(columna);
         }
     }
-    
+    /**
+     * Listar Clientes con la extension txt.
+     * @param modeloTabla 
+     */
     public void listarClientesTxt(TableModelNoEditable modeloTabla){
         //borra los registros de la tabla y los vuelve a rellenar
         while(modeloTabla.getRowCount()>0){
@@ -96,8 +106,7 @@ public class CtrlVerClientesCargados {
         //Creamos numero de columnas que habrá:
         Object[] columna = new Object[4];
         try {
-            String nombre = "Nuevo Hotel";
-            FicherosEscriturayLectura.devolverFicherosEscritura().leerFicheroTxtClientes(nombre);
+            FicherosEscriturayLectura.devolverFicherosEscritura().leerFicheroTxtClientes(nombreFichero);
         } catch (IOException ex) {
             System.out.println("Error al añadir cliente txt");
         }
@@ -110,6 +119,10 @@ public class CtrlVerClientesCargados {
         }
     }
     
+    /**
+     * Listar Clientes con la extension Dat.
+     * @param modeloTabla 
+     */
        public void listarClientesDat(TableModelNoEditable modeloTabla){
         //borra los registros de la tabla y los vuelve a rellenar
         while(modeloTabla.getRowCount()>0){
@@ -118,10 +131,9 @@ public class CtrlVerClientesCargados {
         //Creamos numero de columnas que habrá:
         Object[] columna = new Object[4];
         try {
-            String nombre = "Nuevo Hotel";
-            FicherosEscriturayLectura.devolverFicherosEscritura().leerFicherosDatClientes(nombre);
+            FicherosEscriturayLectura.devolverFicherosEscritura().leerFicherosDatClientes(nombreFichero);
         } catch (IOException ex) {
-            System.out.println("Error al añadir cliente txt");
+            System.out.println("Error al añadir cliente Dat");
         }
         for(Clientes c: FicherosEscriturayLectura.devolverFicherosEscritura().getListaDeClientes()){
             columna[0] = c.getNombre();

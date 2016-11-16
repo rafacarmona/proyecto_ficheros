@@ -30,7 +30,4 @@ public class CtrlInsertarHotel {
         FicherosEscriturayLectura.devolverFicherosEscritura().crearDirectorio(nombreHotel);
     }
     
-    public void qeqweqwe(){
-        
-    }
 }

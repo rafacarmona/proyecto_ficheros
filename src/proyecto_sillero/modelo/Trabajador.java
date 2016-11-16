@@ -62,5 +62,10 @@ public class Trabajador implements Serializable{
     public void setListaDeClientes(ArrayList<Clientes> listaDeClientes) {
         this.listaDeClientes = listaDeClientes;
     }
+
+    @Override
+    public String toString() {
+        return "Trabajador{" + "nombre=" + nombre + ", DNI=" + DNI + ", ocupacion=" + ocupacion + ", listaDeClientes=" + listaDeClientes + '}';
+    }
    
 }

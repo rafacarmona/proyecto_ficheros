@@ -5,12 +5,15 @@
  */
 package proyecto_sillero.vista;
 
+import proyecto_sillero.controlador.CtrlVerTrabajadoresCargados;
+
 /**
  *
  * @author Rafa
  */
 public class VistaJDVerTrabajadoresCargados extends javax.swing.JDialog {
-
+    //Importamos el Controlador.
+    private CtrlVerTrabajadoresCargados ctrlTrabajadoresCargados;
     /**
      * Creates new form VistaJDVerTrabajadoresCargados
      */
@@ -28,23 +31,11 @@ public class VistaJDVerTrabajadoresCargados extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableCargarClientesTrabajador = new javax.swing.JTable();
-        nombreTrabajador = new javax.swing.JLabel();
-        DNITrabajador = new javax.swing.JLabel();
-        ocupacionTrabajador = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        jLabel1.setText("Nombre:");
-
-        jLabel2.setText("DNI:");
-
-        jLabel3.setText(" Ocupacion:");
 
         jLabel4.setText("Sus Clientes:");
 
@@ -61,12 +52,6 @@ public class VistaJDVerTrabajadoresCargados extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(jTableCargarClientesTrabajador);
 
-        nombreTrabajador.setText("jLabel5");
-
-        DNITrabajador.setText("jLabel6");
-
-        ocupacionTrabajador.setText("jLabel7");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -76,42 +61,18 @@ public class VistaJDVerTrabajadoresCargados extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ocupacionTrabajador)
-                            .addComponent(DNITrabajador)
-                            .addComponent(nombreTrabajador))
+                        .addComponent(jLabel4)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(jLabel1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(nombreTrabajador)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(DNITrabajador))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(ocupacionTrabajador))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(261, 261, 261)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -160,14 +121,21 @@ public class VistaJDVerTrabajadoresCargados extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel DNITrabajador;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableCargarClientesTrabajador;
-    private javax.swing.JLabel nombreTrabajador;
-    private javax.swing.JLabel ocupacionTrabajador;
     // End of variables declaration//GEN-END:variables
+
+    public CtrlVerTrabajadoresCargados getCtrlTrabajadoresCargados() {
+        return ctrlTrabajadoresCargados;
+    }
+
+    public void setCtrlTrabajadoresCargados(CtrlVerTrabajadoresCargados ctrlTrabajadoresCargados) {
+        this.ctrlTrabajadoresCargados = ctrlTrabajadoresCargados;
+    }
+
+    public javax.swing.JTable getjTableCargarClientesTrabajador() {
+        return jTableCargarClientesTrabajador;
+    }
+    
 }

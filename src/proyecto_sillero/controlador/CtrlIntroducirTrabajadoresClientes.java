@@ -19,16 +19,23 @@ public class CtrlIntroducirTrabajadoresClientes {
     private String nombreHotel;
     private VistaJDIntroducirTrabajadoresClientes vista;
     private TableModelNoEditable IntroducirVerHoteles;
-
+    //probar creando otro TableNoModel
+    private TableModelNoEditable IntroducirVerHoteles2;
     public CtrlIntroducirTrabajadoresClientes(String nombreHotel) {
         this.nombreHotel = nombreHotel;
         this.vista = new VistaJDIntroducirTrabajadoresClientes(null, true);
         vista.setAnnadirClienteTrabajadorControlador(this);
-       //Creamos tableModel
+        //Creamos tableModel
         IntroducirVerHoteles = new TableModelNoEditable();
+        IntroducirVerHoteles2 = new TableModelNoEditable();
         vista.getjTableVerCliente().setModel(IntroducirVerHoteles);
-        CrearTablaCliente(IntroducirVerHoteles);
-        listarClientes(IntroducirVerHoteles);
+        crearTablaClienteEnTrabajadores(IntroducirVerHoteles);
+        listarClientesEnTrabajadores(IntroducirVerHoteles);
+        //PRUEBA DE SEGUNDA TABLA.
+        
+        vista.getjTableEscribirClientes().setModel(IntroducirVerHoteles2);
+        crearTablaEscribirClienteEnTrabajadores(IntroducirVerHoteles2);
+        vista.setLocationRelativeTo(null);
         vista.setVisible(true);
     }
 
@@ -57,43 +64,71 @@ public class CtrlIntroducirTrabajadoresClientes {
         FicherosEscriturayLectura.devolverFicherosEscritura().escribirFicherosDatTrabajadores(nombreHotel, nombreTrabajador, DNI, ocupacion);
         FicherosEscriturayLectura.devolverFicherosEscritura().escribirFicherosObjTrabajadores(nombreHotel, nombreTrabajador, DNI, ocupacion);
     }
-    
-    
-    //CARGAR TABLA TRABAJADOR
 
-     public void CrearTablaCliente(TableModelNoEditable modeloTabla) {
+    //CARGAR TABLA Cliente en trabajador.
+    /**
+     * Añade la columna Clientes.
+     *
+     * @param modeloTabla
+     */
+    public void crearTablaClienteEnTrabajadores(TableModelNoEditable modeloTabla) {
         modeloTabla.addColumn("Clientes");
     }
 
-     /**
-      * Como principal función, rellena la tabla con los nombres de los clientes. 
-      * Primero limpiamos la tabla. Luego creamos un objeto columna con el que solo recibirá un dato. Luego leerá los ficherosObjClientes e irá rellenando la tabla. retorna falso si falla.
-      * @param modeloTabla --> le pasamos la tabla.
-      * @return 
-      */
-    public boolean listarClientes(TableModelNoEditable modeloTabla) {
+    /**
+     * Como principal función, rellena la tabla con los nombres de los clientes.
+     * Primero limpiamos la tabla. Luego creamos un objeto columna con el que
+     * solo recibirá un dato. Luego leerá los ficherosObjClientes e irá
+     * rellenando la tabla. retorna falso si falla.
+     *
+     * @param modeloTabla --> le pasamos la tabla.
+     * @return
+     */
+    public boolean listarClientesEnTrabajadores(TableModelNoEditable modeloTabla) {
         //borra los registros de la tabla y los vuelve a rellenar
         while (modeloTabla.getRowCount() > 0) {
             modeloTabla.removeRow(0);
         }
         //Creamos numero de columnas que habrá:
         Object[] columna = new Object[1];
-        
+
         try {
             FicherosEscriturayLectura.devolverFicherosEscritura().leerFicherosObjClientes(nombreHotel);
-            for(Clientes c: FicherosEscriturayLectura.devolverFicherosEscritura().getListaDeClientes()) {
-            columna[0]=c.getNombre();
-            modeloTabla.addRow(columna);
-        }
-        
+            for (Clientes c : FicherosEscriturayLectura.devolverFicherosEscritura().getListaDeClientes()) {
+                columna[0] = c.getNombre();
+                modeloTabla.addRow(columna);
+            }
+
         } catch (IOException ex) {
             return false;
         } catch (ClassNotFoundException ex) {
             return false;
         }
-        
+
         return true;
     }
-    
-    
+
+    public void crearTablaEscribirClienteEnTrabajadores(TableModelNoEditable modeloTabla) {
+        modeloTabla.addColumn("Clientes a Añadir");
+    }
+
+    //Obtenemos el Cliente de una columna y lo pasamos a la otra.
+    /**
+     *
+     * @return
+     */
+    public boolean pasarClientedeColumna() {
+        int columna = vista.getjTableVerCliente().getSelectedColumn();
+        int fila = vista.getjTableVerCliente().getSelectedRow();
+        if (columna == -1 || fila == -1) {
+            return false;
+        }
+        String clienteSeleccionado = vista.getjTableVerCliente().getValueAt(fila, columna).toString();
+        Object[] row = new Object[1];
+        row[0] = clienteSeleccionado;
+        
+        vista.getjTableEscribirClientes().repaint();
+        return true;
+    }
+
 }

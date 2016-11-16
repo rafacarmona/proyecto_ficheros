@@ -18,13 +18,14 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author Rafa
  */
 public class CtrlJFileChooser {
-//Lo creamos e instanciamos.
-
+//Creamos el Jfilechooser.
     private JFileChooser chooser;
+//Le creamos los filtros.    
     private FileNameExtensionFilter filtroTxt = new FileNameExtensionFilter("txt", "txt");
     private FileNameExtensionFilter filtroObj = new FileNameExtensionFilter("obj", "obj");
     private FileNameExtensionFilter filtroDat = new FileNameExtensionFilter("dat", "dat");
     private FileNameExtensionFilter filtroXML = new FileNameExtensionFilter("XML", "xml");
+//Atributos de la clase.
     private String nombreHotel;
     private String nombreFichero;
 
@@ -70,6 +71,8 @@ public class CtrlJFileChooser {
         String trabajadorOclientesSinExtension = nombre.substring((nombre.length() - 12), (nombre.length() - 4));
         //Con esto sacamos la extension del fichero
         String extension = nombre.substring(nombre.length() - 4);
+        String nombreFichero = nombre.substring(0, nombre.length()-12);
+        System.out.println(nombreFichero);
         //Hacemos un switch en el que comprobaremos si es Cliente o trabajador. Dentro otro switch que compruebe la extension.
         switch (trabajadorOclientesSinExtension) {
             case "Clientes":
