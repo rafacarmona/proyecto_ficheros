@@ -71,5 +71,10 @@ public class CtrlIntroducirHoteles {
         this.nombreHotel = nombreHotel;
     }
     
+    public void actualizarTabla(){
+        vista.repaint();
+        listarHoteles(IntroducirVerHoteles);
+    }
+    
 
 }

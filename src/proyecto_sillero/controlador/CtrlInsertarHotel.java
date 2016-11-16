@@ -15,7 +15,8 @@ import proyecto_sillero.vista.VistaJDInsertarHoteles;
  */
 public class CtrlInsertarHotel {
     private VistaJDInsertarHoteles vista;
-    
+    //controlador para poder actualizar la tabla
+    private CtrlIntroducirHoteles ctrlintroducirHoteles;
     public CtrlInsertarHotel() {
 
         this.vista = new VistaJDInsertarHoteles(null, true);
@@ -29,4 +30,7 @@ public class CtrlInsertarHotel {
         FicherosEscriturayLectura.devolverFicherosEscritura().crearDirectorio(nombreHotel);
     }
     
+    public void qeqweqwe(){
+        
+    }
 }

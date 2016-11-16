@@ -125,7 +125,7 @@ private CtrlIntroducirHoteles introducirControlador;
     }//GEN-LAST:event_jMenuItemAñadirHotelActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-             
+             introducirControlador.actualizarTabla();
              
     }//GEN-LAST:event_formWindowGainedFocus
 
