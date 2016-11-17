@@ -89,6 +89,13 @@ public class FicherosEscriturayLectura {
         if (!archivo.exists()) {
             archivo.createNewFile();
         }
+         /**
+         * Comprueba si el fichero está vacío o no. si no está vacío lee el
+         * fichero y lo carga en memoria.
+         */
+        if (archivo.length() > 0) {
+            leerFicheroTxtClientes(nombreFichero);
+        }
         /**
          * Forma 1: creamos el file writer antes (Arriba, debajo del file
          * archivo, lo declaramos). Luego lo usamos en el printWriter
@@ -132,6 +139,13 @@ public class FicherosEscriturayLectura {
 
         if (!archivo.exists()) {
             archivo.createNewFile();
+        }
+        /**
+         * Comprueba si el fichero está vacío o no. si no está vacío lee el
+         * fichero y lo carga en memoria.
+         */
+        if (archivo.length() > 0) {
+            leerFicheroTxtTrabajadores(nombreFichero);
         }
         /**
          * Forma 2:No creamos el file writer antes. Metemos directamente la ruta
@@ -181,6 +195,13 @@ public class FicherosEscriturayLectura {
 
         if (!archivo.exists()) {
             archivo.createNewFile();
+        }
+        /**
+         * Comprueba si el fichero está vacío o no. si no está vacío lee el
+         * fichero y lo carga en memoria.
+         */
+        if (archivo.length() > 0) {
+            leerFicherosDatClientes(nombreFichero);
         }
         /**
          * DataOutputStream guarda como ficheros de datos. llama a la clase con
@@ -238,6 +259,13 @@ public class FicherosEscriturayLectura {
 
         if (!archivo.exists()) {
             archivo.createNewFile();
+        }
+        /**
+         * Comprueba si el fichero está vacío o no. si no está vacío lee el
+         * fichero y lo carga en memoria.
+         */
+        if (archivo.length() > 0) {
+            leerFicherosDatTrabajadores(nombreFichero);
         }
         /**
          * DataOutputStream guarda como ficheros de datos. llama a la clase con
@@ -561,13 +589,13 @@ public class FicherosEscriturayLectura {
         //Aqui escribiremos lo que queremos que lea el fichero.
         //listaDeClientes.removeAll(listaDeClientes);
         String cadenaClientes = br.readLine();
-                 listaDeClientes.removeAll(listaDeClientes);
+        listaDeClientes.removeAll(listaDeClientes);
         while (cadenaClientes != null) {
             // guardamos cada dato del cliente en un array.
             String[] arrayDatosClientes = cadenaClientes.split("\\|");
             Clientes a = new Clientes(arrayDatosClientes[0], arrayDatosClientes[1], Integer.parseInt(arrayDatosClientes[2]), Integer.parseInt(arrayDatosClientes[3]));
             //lo añadimos
-   
+
             listaDeClientes.add(a);
             cadenaClientes = br.readLine();
         }
@@ -609,7 +637,7 @@ public class FicherosEscriturayLectura {
 
         while (cadenaClientes != null) {
             // guardamos cada dato del cliente en un array.
-            String[] arrayDatosTrabajadores = cadenaClientes.split("|");
+            String[] arrayDatosTrabajadores = cadenaClientes.split("\\|");
             Trabajador a = new Trabajador(arrayDatosTrabajadores[0], arrayDatosTrabajadores[1], arrayDatosTrabajadores[2]);
             //lo añadimos
             listaDeTrabajadores.add(a);
@@ -656,8 +684,7 @@ public class FicherosEscriturayLectura {
             int nHabitacion = dis.readInt();
             int nNoches = dis.readInt();
             Clientes a = new Clientes(nombreCliente, DNI, nHabitacion, nNoches);
-            //lo añadimos
-            
+            //lo añadimos 
             listaDeClientes.add(a);
         }
         dis.close();

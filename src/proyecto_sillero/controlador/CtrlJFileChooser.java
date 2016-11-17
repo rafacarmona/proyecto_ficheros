@@ -72,7 +72,7 @@ public class CtrlJFileChooser {
         //Con esto sacamos la extension del fichero
         String extension = nombre.substring(nombre.length() - 4);
         String nombreFichero = nombre.substring(0, nombre.length()-12);
-        if(!nombreFichero.equals("Cliente")){
+        if(!trabajadorOclientesSinExtension.equals("Clientes")){
             nombreFichero =  nombre.substring(0, nombre.length()-16);
             trabajadorOclientesSinExtension = nombre.substring((nombre.length() - 16), (nombre.length() - 4));
         }
