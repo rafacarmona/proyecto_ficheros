@@ -678,7 +678,7 @@ public class FicherosEscriturayLectura {
         fis = new FileInputStream(archivo);
         DataInputStream dis = new DataInputStream(fis);
         listaDeClientes.removeAll(listaDeClientes);
-        while (dis.available() > 0) {
+        while (dis.available() >= 0) {
             String nombreCliente = dis.readUTF();
             String DNI = dis.readUTF();
             int nHabitacion = dis.readInt();
@@ -721,7 +721,7 @@ public class FicherosEscriturayLectura {
          */
         fis = new FileInputStream(archivo);
         DataInputStream dis = new DataInputStream(fis);
-        while (dis.available() > 0) {
+        while (dis.available() >= 0) {
             String nombreCliente = dis.readUTF();
             String DNI = dis.readUTF();
             String ocupacion = dis.readUTF();
