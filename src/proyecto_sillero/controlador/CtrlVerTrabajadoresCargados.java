@@ -21,6 +21,7 @@ public class CtrlVerTrabajadoresCargados {
     String nombreFichero;
     //Table Model
     private TableModelNoEditable TMClientesEnTrabajadoresCargados;
+    private TableModelNoEditable TMTrabajadoresCargados;
     //Vista
     private VistaJDVerTrabajadoresCargados vista;
 
@@ -35,18 +36,22 @@ public class CtrlVerTrabajadoresCargados {
         //Le ponemos la Localización en el centro
         vista.setLocationRelativeTo(null);
         //Creamos el TableModel
-        TMClientesEnTrabajadoresCargados = new TableModelNoEditable();
+        TMTrabajadoresCargados = new TableModelNoEditable();
         //Le decimos quien va a ser su modelo de tabla. en este caso será noEditable.
-        vista.getjTableCargarClientesTrabajador().setModel(TMClientesEnTrabajadoresCargados);
-        //Listar los Clientes y asignarColumnaVerClientes //Falta
+        vista.getjTableVerTrabajadores().setModel(TMTrabajadoresCargados);
+        //Listar CLientes y asignarColumnaVerClientes
+        asignarColumnaVerTrabajadores(TMTrabajadoresCargados);
 
         //Según lo que pase (de 0 a 3) cargará un listar u otro.
         switch (extension) {
             case 0:
+                listarTrabajadoresObj(TMTrabajadoresCargados);
                 break;
             case 1:
+                listarTrabajadoresTxt(TMTrabajadoresCargados);
                 break;
             case 2:
+                listarTrabajadoresDat(TMTrabajadoresCargados);
                 break;
             case 3: //xml
                 break;
@@ -57,19 +62,80 @@ public class CtrlVerTrabajadoresCargados {
         //Ponemos la vista visible.
         vista.setVisible(true);
     }
-    
-        public void listarTrabajadoresObj(){
+
+    /**
+     *
+     * @param modeloTabla
+     */
+    public void asignarColumnaVerTrabajadores(TableModelNoEditable modeloTabla) {
+        modeloTabla.addColumn("Nombre");
+        modeloTabla.addColumn("DNI");
+        modeloTabla.addColumn("Ocupación");
+    }
+
+    public void listarTrabajadoresObj(TableModelNoEditable modeloTabla) {
+        //borra los registros de la tabla y los vuelve a rellenar
+        while (modeloTabla.getRowCount() > 0) {
+            modeloTabla.removeRow(0);
+        }
+        //Creamos numero de columnas que habrá:
+        Object[] columna = new Object[3];
         try {
             FicherosEscriturayLectura.devolverFicherosEscritura().leerFicherosObjTrabajadores(nombreFichero);
         } catch (IOException ex) {
-            System.out.println("Error al añadir Trabajador obj");
+            System.out.println("Error al añadir cliente obj");
         } catch (ClassNotFoundException ex) {
-             System.out.println("Error, Clase no encontrada Trabajador.");//cambiar luego
+            System.out.println("Error, Clase no encontrada.");//cambiar luego
         }
-        for(Trabajador t: FicherosEscriturayLectura.devolverFicherosEscritura().getListaDeTrabajadores()){
-            String nombre = t.getNombre();
-            String dni = t.getDNI();
-            String ocupacion = t.getOcupacion();
+        for (Trabajador t : FicherosEscriturayLectura.devolverFicherosEscritura().getListaDeTrabajadores()) {
+            columna[0] = t.getNombre();
+            columna[1] = t.getDNI();
+            columna[2] = t.getOcupacion();
+            modeloTabla.addRow(columna);
+        }
+    }
+
+    /**
+     *
+     * @param modeloTabla
+     */
+    public void listarTrabajadoresTxt(TableModelNoEditable modeloTabla) {
+        //borra los registros de la tabla y los vuelve a rellenar
+        while (modeloTabla.getRowCount() > 0) {
+            modeloTabla.removeRow(0);
+        }
+        //Creamos numero de columnas que habrá:
+        Object[] columna = new Object[3];
+        try {
+            FicherosEscriturayLectura.devolverFicherosEscritura().leerFicheroTxtTrabajadores(nombreFichero);
+        } catch (IOException ex) {
+            System.out.println("Error al añadir cliente txt");
+        }
+        for (Trabajador t : FicherosEscriturayLectura.devolverFicherosEscritura().getListaDeTrabajadores()) {
+            columna[0] = t.getNombre();
+            columna[1] = t.getDNI();
+            columna[2] = t.getOcupacion();
+            modeloTabla.addRow(columna);
+        }
+    }
+
+    public void listarTrabajadoresDat(TableModelNoEditable modeloTabla) {
+        //borra los registros de la tabla y los vuelve a rellenar
+        while (modeloTabla.getRowCount() > 0) {
+            modeloTabla.removeRow(0);
+        }
+        //Creamos numero de columnas que habrá:
+        Object[] columna = new Object[3];
+        try {
+            FicherosEscriturayLectura.devolverFicherosEscritura().leerFicherosDatTrabajadores(nombreFichero);
+        } catch (IOException ex) {
+            System.out.println("Error al añadir cliente dat");
+        }
+        for (Trabajador t : FicherosEscriturayLectura.devolverFicherosEscritura().getListaDeTrabajadores()) {
+            columna[0] = t.getNombre();
+            columna[1] = t.getDNI();
+            columna[2] = t.getOcupacion();
+            modeloTabla.addRow(columna);
         }
     }
 }

@@ -72,6 +72,10 @@ public class CtrlJFileChooser {
         //Con esto sacamos la extension del fichero
         String extension = nombre.substring(nombre.length() - 4);
         String nombreFichero = nombre.substring(0, nombre.length()-12);
+        if(!nombreFichero.equals("Cliente")){
+            nombreFichero =  nombre.substring(0, nombre.length()-16);
+            trabajadorOclientesSinExtension = nombre.substring((nombre.length() - 16), (nombre.length() - 4));
+        }
         System.out.println(nombreFichero);
         //Hacemos un switch en el que comprobaremos si es Cliente o trabajador. Dentro otro switch que compruebe la extension.
         switch (trabajadorOclientesSinExtension) {
@@ -97,31 +101,11 @@ public class CtrlJFileChooser {
                 break;
             case "Trabajadores":
                 switch (extension) {
-                    case ".dat": {
-                        try {
-                            FicherosEscriturayLectura.devolverFicherosEscritura().leerFicherosDatClientes(nombreFichero);
-                        } catch (IOException ex) {
-                            System.out.println("Error en .dat Trabajadores.");
-                        }
-                    }
+                    case ".dat":  new CtrlVerTrabajadoresCargados(nombreFichero, 2);
                     break;
-                    case ".txt": {
-                        try {
-                            FicherosEscriturayLectura.devolverFicherosEscritura().leerFicheroTxtTrabajadores(nombreFichero);
-                        } catch (IOException ex) {
-                            System.out.println("Error en .txt Trabajadores.");
-                        }
-                    }
+                    case ".txt": new CtrlVerTrabajadoresCargados(nombreFichero, 1);
                     break;
-                    case ".obj": {
-                        try {
-                            FicherosEscriturayLectura.devolverFicherosEscritura().leerFicherosObjTrabajadores(nombreFichero);
-                        } catch (IOException ex) {
-                            System.out.println("Error en .obj IO Clientes.");
-                        } catch (ClassNotFoundException ex) {
-                            System.out.println("Error en .obj CLASSNOTFOUND Trabajadores.");
-                        }
-                    }
+                    case ".obj": new CtrlVerTrabajadoresCargados(nombreFichero, 0);
                     break;
                     case ".xml":
                         break;
@@ -131,7 +115,7 @@ public class CtrlJFileChooser {
                 }
                 break;
             default:
-                System.out.println("No es ni un cliente ni trabajador hermano");
+                System.out.println("No es ni un cliente ni trabajador");
                 break;
 
         }
