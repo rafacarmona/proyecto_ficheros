@@ -8,6 +8,7 @@ package DAO;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -89,7 +90,7 @@ public class FicherosEscriturayLectura {
         if (!archivo.exists()) {
             archivo.createNewFile();
         }
-         /**
+        /**
          * Comprueba si el fichero está vacío o no. si no está vacío lee el
          * fichero y lo carga en memoria.
          */
@@ -154,9 +155,7 @@ public class FicherosEscriturayLectura {
         PrintWriter pw = new PrintWriter(new FileWriter(archivo, true)); //llama a la clase con la que escribiremos en el fichero de texto
 
         //Aqui escribiremos lo que queremos que escriba (guarde) en el fichero:;
-        pw.println(nombreTrabajador);
-        pw.println(DNI);
-        pw.println(ocupacion);
+        pw.println(nombreFichero + "|" + DNI + "|" + ocupacion);
         pw.close(); //Cerramos la clase printWriter
     }
 
@@ -215,12 +214,10 @@ public class FicherosEscriturayLectura {
          * Int para enteros, etc. Aqui escribiremos lo que queremos que escriba
          * (guarde) en el fichero:
          */
-        for (Clientes c : listaDeClientes) {
-            dos.writeUTF(c.getNombre());
-            dos.writeUTF(c.getDNI());
-            dos.writeInt(c.getNHabitacion());
-            dos.writeInt(c.getNNoches());
-        }
+        dos.writeUTF(nombreCliente);
+        dos.writeUTF(DNI);
+        dos.writeInt(nHabitacion);
+        dos.writeInt(nNoches);
 
         dos.close(); //Cerramos la clase printWriter
 
@@ -280,10 +277,9 @@ public class FicherosEscriturayLectura {
          * (guarde) en el fichero:
          */
         for (Trabajador t : listaDeTrabajadores) {
-            dos.writeUTF(t.getNombre());
-            dos.writeUTF(t.getDNI());
-            dos.writeUTF(t.getOcupacion());
-
+            dos.writeUTF(nombreFichero);
+            dos.writeUTF(DNI);
+            dos.writeUTF(ocupacion);
         }
         dos.close(); //Cerramos la clase printWriter    
     }
@@ -633,15 +629,15 @@ public class FicherosEscriturayLectura {
         BufferedReader br = new BufferedReader(fr);
         //Aqui escribiremos lo que queremos que lea el fichero.
         listaDeTrabajadores.removeAll(listaDeTrabajadores);
-        String cadenaClientes = br.readLine();
+        String cadenaTrabajadores = br.readLine();
 
-        while (cadenaClientes != null) {
+        while (cadenaTrabajadores != null) {
             // guardamos cada dato del cliente en un array.
-            String[] arrayDatosTrabajadores = cadenaClientes.split("\\|");
+            String[] arrayDatosTrabajadores = cadenaTrabajadores.split("\\|");
             Trabajador a = new Trabajador(arrayDatosTrabajadores[0], arrayDatosTrabajadores[1], arrayDatosTrabajadores[2]);
             //lo añadimos
             listaDeTrabajadores.add(a);
-            cadenaClientes = br.readLine();
+            cadenaTrabajadores = br.readLine();
         }
         br.close();
 
@@ -657,6 +653,8 @@ public class FicherosEscriturayLectura {
          * Declaramos todos los Ficheros. con el mkdir creamos el directorio.
          * Con el createNewFile creamos el Fichero
          */
+        //Creamos flag
+        boolean flag = false;
         File rutaPrincipal = new File("./Hoteles");
         File subruta = new File("./Hoteles/" + nombreFichero);
         File archivo = new File("./Hoteles/" + nombreFichero + "/" + nombreFichero + "Clientes.dat");
@@ -678,15 +676,21 @@ public class FicherosEscriturayLectura {
         fis = new FileInputStream(archivo);
         DataInputStream dis = new DataInputStream(fis);
         listaDeClientes.removeAll(listaDeClientes);
-        while (dis.available() >= 0) {
-            String nombreCliente = dis.readUTF();
-            String DNI = dis.readUTF();
-            int nHabitacion = dis.readInt();
-            int nNoches = dis.readInt();
-            Clientes a = new Clientes(nombreCliente, DNI, nHabitacion, nNoches);
-            //lo añadimos 
-            listaDeClientes.add(a);
-        }
+        do {
+            try {
+                String nombreCliente = dis.readUTF();
+                String DNI = dis.readUTF();
+                int nHabitacion = dis.readInt();
+                int nNoches = dis.readInt();
+
+                Clientes c = new Clientes(nombreCliente, DNI, nHabitacion, nNoches);
+                listaDeClientes.add(c);
+
+            } catch (EOFException e) {
+                flag = true;
+            }
+
+        } while (!flag);
         dis.close();
 
     }
@@ -701,6 +705,8 @@ public class FicherosEscriturayLectura {
          * Declaramos todos los Ficheros. con el mkdir creamos el directorio.
          * Con el createNewFile creamos el Fichero
          */
+        //Creamos flag
+        boolean flag = false;
         File rutaPrincipal = new File("./Hoteles");
         File subruta = new File("./Hoteles/" + nombreFichero);
         File archivo = new File("./Hoteles/" + nombreFichero + "/" + nombreFichero + "Trabajadores.dat");
@@ -721,11 +727,19 @@ public class FicherosEscriturayLectura {
          */
         fis = new FileInputStream(archivo);
         DataInputStream dis = new DataInputStream(fis);
-        while (dis.available() >= 0) {
-            String nombreCliente = dis.readUTF();
-            String DNI = dis.readUTF();
-            String ocupacion = dis.readUTF();
-        }
+        do {
+            try {
+                String nombreTrabajador = dis.readUTF();
+                String DNI = dis.readUTF();
+                String ocupacion = dis.readUTF();
+                Trabajador t = new Trabajador(nombreTrabajador, DNI, ocupacion);
+                listaDeTrabajadores.add(t);
+
+            } catch (EOFException e) {
+                flag = true;
+            }
+
+        } while (!flag);
         dis.close();
 
     }
