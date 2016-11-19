@@ -8,7 +8,6 @@ package proyecto_sillero.controlador;
 import proyecto_sillero.vista.VistaJDIntroducirTrabajadoresClientes;
 import DAO.FicherosEscriturayLectura;
 import java.io.IOException;
-import javax.swing.table.TableModel;
 import proyecto_sillero.modelo.Clientes;
 
 /**
@@ -116,10 +115,14 @@ public class CtrlIntroducirTrabajadoresClientes {
 
     //Obtenemos el Cliente de una columna y lo pasamos a la otra.
     /**
-     *
+     *primero conseguimos el tablemodel en el que escribimos, lo casteamos y lo ponemos como tablemodel no editable. 
+     * Conseguimos la fila seleccionada, si no hemos conseguido ninguna será -1.
+     * Conseguimos el nombre de la columna y lo pasamos a String.
+     * Creamos el objeto y añadimos la row. seteamos el modelo.
+     * Ahora lo que hacemos es de Ver Cliente borrar el Cliente pasado.
      * @return
      */
-    public boolean pasarClientedeColumna() {
+    public boolean pasarDeVerClienteAEscribir() {
         TableModelNoEditable tmEscribirCliente = (TableModelNoEditable) vista.getjTableEscribirClientes().getModel();
         int fila = vista.getjTableVerCliente().getSelectedRow();
         if (fila == -1) {
@@ -136,6 +139,26 @@ public class CtrlIntroducirTrabajadoresClientes {
         tmVerCliente.removeRow(fila);
         vista.getjTableVerCliente().setModel(tmVerCliente);
         vista.getjTableEscribirClientes().repaint();
+        return true;
+    }
+    
+    public boolean pasarDeEscribirClienteAVer() {
+        TableModelNoEditable tmEscribirCliente = (TableModelNoEditable) vista.getjTableVerCliente().getModel();
+        int fila = vista.getjTableEscribirClientes().getSelectedRow();
+        if (fila == -1) {
+            return false;
+        }
+        String clienteSeleccionado = vista.getjTableEscribirClientes().getValueAt(fila, 0).toString();
+        Object[] row = new Object[1];
+        row[0] = clienteSeleccionado;
+        tmEscribirCliente.addRow(row);
+        vista.getjTableVerCliente().setModel(tmEscribirCliente);
+        
+        TableModelNoEditable tmVerCliente;
+        tmVerCliente = (TableModelNoEditable) vista.getjTableEscribirClientes().getModel();
+        tmVerCliente.removeRow(fila);
+        vista.getjTableEscribirClientes().setModel(tmVerCliente);
+        vista.getjTableVerCliente().repaint();
         return true;
     }
 

@@ -403,7 +403,7 @@ public class FicherosEscriturayLectura {
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         /**
          * Escribimos el ArrayList dentro del fichero. Si no existe la
-         * listaDeClientes se crea. se pasan por parametros los atributos y se
+         * listaDeTrabajadores se crea. se pasan por parametros los atributos y se
          * crea la clase.
          */
 
@@ -411,7 +411,7 @@ public class FicherosEscriturayLectura {
             listaDeTrabajadores = new ArrayList<Trabajador>();
         }
         listaDeTrabajadores.add(new Trabajador(nombreTrabajador, DNI, ocupacion));
-        //oos.writeObject(listaDeClientes);
+        
         for (Trabajador c : listaDeTrabajadores) {
             oos.writeObject(listaDeTrabajadores);
         }
@@ -549,7 +549,7 @@ public class FicherosEscriturayLectura {
          */
         ObjectInputStream ois = new ObjectInputStream(new FileInputStream(archivo));
         //probar el removeAll
-        listaDeClientes.removeAll(listaDeClientes);
+        listaDeTrabajadores.removeAll(listaDeTrabajadores);
         listaDeTrabajadores = (ArrayList< Trabajador>) ois.readObject();
         ois.close();
     }

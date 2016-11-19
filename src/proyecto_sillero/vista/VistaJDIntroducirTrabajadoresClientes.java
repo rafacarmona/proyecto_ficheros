@@ -220,6 +220,11 @@ public class VistaJDIntroducirTrabajadoresClientes extends javax.swing.JDialog {
         });
 
         jButtonPasarALeerCliente.setText("<<");
+        jButtonPasarALeerCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPasarALeerClienteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -357,8 +362,12 @@ public class VistaJDIntroducirTrabajadoresClientes extends javax.swing.JDialog {
     }//GEN-LAST:event_jTextFieldNombreTrabajadorActionPerformed
 
     private void jButtonPasarAEscribirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPasarAEscribirClienteActionPerformed
-        annadirClienteTrabajadorControlador.pasarClientedeColumna();
+        annadirClienteTrabajadorControlador.pasarDeVerClienteAEscribir();
     }//GEN-LAST:event_jButtonPasarAEscribirClienteActionPerformed
+
+    private void jButtonPasarALeerClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPasarALeerClienteActionPerformed
+        annadirClienteTrabajadorControlador.pasarDeEscribirClienteAVer();
+    }//GEN-LAST:event_jButtonPasarALeerClienteActionPerformed
 
     /**
      * @param args the command line arguments

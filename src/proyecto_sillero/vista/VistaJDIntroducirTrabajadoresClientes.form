@@ -415,6 +415,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="&lt;&lt;"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonPasarALeerClienteActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

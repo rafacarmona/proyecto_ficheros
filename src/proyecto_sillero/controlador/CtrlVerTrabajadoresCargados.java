@@ -7,7 +7,6 @@ package proyecto_sillero.controlador;
 
 import DAO.FicherosEscriturayLectura;
 import java.io.IOException;
-import proyecto_sillero.modelo.Clientes;
 import proyecto_sillero.modelo.Trabajador;
 import proyecto_sillero.vista.VistaJDVerTrabajadoresCargados;
 

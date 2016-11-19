@@ -19,6 +19,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class CtrlJFileChooser {
 //Creamos el Jfilechooser.
+
     private JFileChooser chooser;
 //Le creamos los filtros.    
     private FileNameExtensionFilter filtroTxt = new FileNameExtensionFilter("txt", "txt");
@@ -71,9 +72,9 @@ public class CtrlJFileChooser {
         String trabajadorOclientesSinExtension = nombre.substring((nombre.length() - 12), (nombre.length() - 4));
         //Con esto sacamos la extension del fichero
         String extension = nombre.substring(nombre.length() - 4);
-        String nombreFichero = nombre.substring(0, nombre.length()-12);
-        if(!trabajadorOclientesSinExtension.equals("Clientes")){
-            nombreFichero =  nombre.substring(0, nombre.length()-16);
+        String nombreFichero = nombre.substring(0, nombre.length() - 12);
+        if (!trabajadorOclientesSinExtension.equals("Clientes")) {
+            nombreFichero = nombre.substring(0, nombre.length() - 16);
             trabajadorOclientesSinExtension = nombre.substring((nombre.length() - 16), (nombre.length() - 4));
         }
         System.out.println(nombreFichero);
@@ -81,17 +82,17 @@ public class CtrlJFileChooser {
         switch (trabajadorOclientesSinExtension) {
             case "Clientes":
                 switch (extension) {
-                    case ".dat": 
+                    case ".dat":
                         new CtrlVerClientesCargados(nombreFichero, 2);
-                    break;
+                        break;
                     case ".txt":
-                       new CtrlVerClientesCargados(nombreFichero, 1);
-                    
-                    break;
-                    case ".obj": 
-                      new CtrlVerClientesCargados(nombreFichero, 0);
-                    
-                    break;
+                        new CtrlVerClientesCargados(nombreFichero, 1);
+
+                        break;
+                    case ".obj":
+                        new CtrlVerClientesCargados(nombreFichero, 0);
+
+                        break;
                     case ".xml":
                         break;
                     default:
@@ -101,12 +102,15 @@ public class CtrlJFileChooser {
                 break;
             case "Trabajadores":
                 switch (extension) {
-                    case ".dat":  new CtrlVerTrabajadoresCargados(nombreFichero, 2);
-                    break;
-                    case ".txt": new CtrlVerTrabajadoresCargados(nombreFichero, 1);
-                    break;
-                    case ".obj": new CtrlVerTrabajadoresCargados(nombreFichero, 0);
-                    break;
+                    case ".dat":
+                        new CtrlVerTrabajadoresCargados(nombreFichero, 2);
+                        break;
+                    case ".txt":
+                        new CtrlVerTrabajadoresCargados(nombreFichero, 1);
+                        break;
+                    case ".obj":
+                        new CtrlVerTrabajadoresCargados(nombreFichero, 0);
+                        break;
                     case ".xml":
                         break;
                     default:
