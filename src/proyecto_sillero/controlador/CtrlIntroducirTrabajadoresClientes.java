@@ -40,6 +40,11 @@ public class CtrlIntroducirTrabajadoresClientes {
         vista.setVisible(true);
     }
 
+    /**
+     * recogemos de los campos el nombre el DNI, el numero de habitacion y el numero de noches. parseamos el numero de habitacion y noches. y luego guardamos en todos los tiposde ficheros.
+     * @throws IOException
+     * @throws ClassNotFoundException 
+     */
     public void escribirCliente() throws IOException, ClassNotFoundException {
         String nombreCliente = vista.getjTextFieldNombreCliente().getText();
         String DNI = vista.getjTextFieldDNICliente().getText();
@@ -48,22 +53,38 @@ public class CtrlIntroducirTrabajadoresClientes {
         FicherosEscriturayLectura.devolverFicherosEscritura().escribirFicheroTxtClientes(nombreHotel, nombreCliente, DNI, nHabitacion, nNoches);
         FicherosEscriturayLectura.devolverFicherosEscritura().escribirFicherosDatClientes(nombreHotel, nombreCliente, DNI, nHabitacion, nNoches);
         FicherosEscriturayLectura.devolverFicherosEscritura().escribirFicherosObjClientes(nombreHotel, nombreCliente, DNI, nHabitacion, nNoches);
-        FicherosEscriturayLectura.devolverFicherosEscritura().leerFicheroTxtClientes(nombreHotel);
-
     }
 
+    /**
+     * lee el fichero para listarlo.
+     * @throws IOException
+     * @throws ClassNotFoundException 
+     */
     public void leerFichero() throws IOException, ClassNotFoundException {
         FicherosEscriturayLectura.devolverFicherosEscritura().leerFicherosObjClientes(nombreHotel);
 
     }
-
+    
+    /**
+     * Recogemos el nombre de trabajador, dni, y ocupacion y lo guardamos.
+     * 
+     * @throws IOException
+     * @throws ClassNotFoundException 
+     */
     public void escribirTrabajador() throws IOException, ClassNotFoundException {
         String nombreTrabajador = vista.getjTextFieldNombreTrabajador().getText();
         String DNI = vista.getjTextFieldDNITrabajador().getText();
         String ocupacion = vista.getjTextFieldOcupacion().getText();
+        //Recoger de la tabla los clientes.
+        //Lo primero es recoger todos las tablas.
+        for(Clientes c: FicherosEscriturayLectura.devolverFicherosEscritura().getListaDeClientes())
+        {
+            
+        }
         FicherosEscriturayLectura.devolverFicherosEscritura().escribirFicheroTxtTrabajadores(nombreHotel, nombreTrabajador, DNI, ocupacion);
         FicherosEscriturayLectura.devolverFicherosEscritura().escribirFicherosDatTrabajadores(nombreHotel, nombreTrabajador, DNI, ocupacion);
         FicherosEscriturayLectura.devolverFicherosEscritura().escribirFicherosObjTrabajadores(nombreHotel, nombreTrabajador, DNI, ocupacion);
+        
     }
 
     //CARGAR TABLA Cliente en trabajador.
@@ -141,7 +162,10 @@ public class CtrlIntroducirTrabajadoresClientes {
         vista.getjTableEscribirClientes().repaint();
         return true;
     }
-    
+    /**
+     * Lo mismo que pasarDeVerClienteAEscribir pero de al contrario.
+     * @return 
+     */
     public boolean pasarDeEscribirClienteAVer() {
         TableModelNoEditable tmEscribirCliente = (TableModelNoEditable) vista.getjTableVerCliente().getModel();
         int fila = vista.getjTableEscribirClientes().getSelectedRow();
