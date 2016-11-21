@@ -28,9 +28,15 @@ public class Trabajador implements Serializable{
         this.nombre = nombre;
         this.DNI = DNI;
         this.ocupacion = ocupacion;
-        this.listaDeClientes = listaDeClientes;
     }
 
+    public Trabajador(String nombre, String DNI, String ocupacion, ArrayList<Clientes> listaDeClientes) {
+        this.nombre = nombre;
+        this.DNI = DNI;
+        this.ocupacion = ocupacion;
+        this.listaDeClientes = listaDeClientes;
+    }
+    
     public String getNombre() {
         return nombre;
     }

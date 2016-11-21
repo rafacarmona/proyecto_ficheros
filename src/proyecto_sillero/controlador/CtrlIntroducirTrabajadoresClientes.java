@@ -8,6 +8,7 @@ package proyecto_sillero.controlador;
 import proyecto_sillero.vista.VistaJDIntroducirTrabajadoresClientes;
 import DAO.FicherosEscriturayLectura;
 import java.io.IOException;
+import java.util.ArrayList;
 import proyecto_sillero.modelo.Clientes;
 
 /**
@@ -41,9 +42,12 @@ public class CtrlIntroducirTrabajadoresClientes {
     }
 
     /**
-     * recogemos de los campos el nombre el DNI, el numero de habitacion y el numero de noches. parseamos el numero de habitacion y noches. y luego guardamos en todos los tiposde ficheros.
+     * recogemos de los campos el nombre el DNI, el numero de habitacion y el
+     * numero de noches. parseamos el numero de habitacion y noches. y luego
+     * guardamos en todos los tiposde ficheros.
+     *
      * @throws IOException
-     * @throws ClassNotFoundException 
+     * @throws ClassNotFoundException
      */
     public void escribirCliente() throws IOException, ClassNotFoundException {
         String nombreCliente = vista.getjTextFieldNombreCliente().getText();
@@ -57,34 +61,44 @@ public class CtrlIntroducirTrabajadoresClientes {
 
     /**
      * lee el fichero para listarlo.
+     *
      * @throws IOException
-     * @throws ClassNotFoundException 
+     * @throws ClassNotFoundException
      */
     public void leerFichero() throws IOException, ClassNotFoundException {
         FicherosEscriturayLectura.devolverFicherosEscritura().leerFicherosObjClientes(nombreHotel);
 
     }
-    
+
     /**
      * Recogemos el nombre de trabajador, dni, y ocupacion y lo guardamos.
-     * 
+     *
      * @throws IOException
-     * @throws ClassNotFoundException 
+     * @throws ClassNotFoundException
      */
     public void escribirTrabajador() throws IOException, ClassNotFoundException {
         String nombreTrabajador = vista.getjTextFieldNombreTrabajador().getText();
         String DNI = vista.getjTextFieldDNITrabajador().getText();
         String ocupacion = vista.getjTextFieldOcupacion().getText();
+        //Recoger la tabla
+        int nfila = vista.getjTableEscribirClientes().getRowCount();
+        //String clienteSeleccionado = vista.getjTableEscribirClientes().getValueAt(fila, 0).toString();
         //Recoger de la tabla los clientes.
         //Lo primero es recoger todos las tablas.
-        for(Clientes c: FicherosEscriturayLectura.devolverFicherosEscritura().getListaDeClientes())
-        {
-            
+        ArrayList<Clientes> listaDeClientes = new ArrayList<Clientes>();
+        for (int i = 0; i < nfila; i++) {
+            String clienteSeleccionado = vista.getjTableEscribirClientes().getValueAt(i, 0).toString();
+            for (Clientes c : FicherosEscriturayLectura.devolverFicherosEscritura().getListaDeClientes()) {
+                if (c.getNombre().equals(clienteSeleccionado)) {
+                    listaDeClientes.add(c);
+                }
+            }
         }
-        FicherosEscriturayLectura.devolverFicherosEscritura().escribirFicheroTxtTrabajadores(nombreHotel, nombreTrabajador, DNI, ocupacion);
+
+        FicherosEscriturayLectura.devolverFicherosEscritura().escribirFicheroTxtTrabajadores(nombreHotel, nombreTrabajador, DNI, ocupacion, listaDeClientes);
         FicherosEscriturayLectura.devolverFicherosEscritura().escribirFicherosDatTrabajadores(nombreHotel, nombreTrabajador, DNI, ocupacion);
         FicherosEscriturayLectura.devolverFicherosEscritura().escribirFicherosObjTrabajadores(nombreHotel, nombreTrabajador, DNI, ocupacion);
-        
+
     }
 
     //CARGAR TABLA Cliente en trabajador.
@@ -136,11 +150,12 @@ public class CtrlIntroducirTrabajadoresClientes {
 
     //Obtenemos el Cliente de una columna y lo pasamos a la otra.
     /**
-     *primero conseguimos el tablemodel en el que escribimos, lo casteamos y lo ponemos como tablemodel no editable. 
-     * Conseguimos la fila seleccionada, si no hemos conseguido ninguna será -1.
-     * Conseguimos el nombre de la columna y lo pasamos a String.
-     * Creamos el objeto y añadimos la row. seteamos el modelo.
-     * Ahora lo que hacemos es de Ver Cliente borrar el Cliente pasado.
+     * primero conseguimos el tablemodel en el que escribimos, lo casteamos y lo
+     * ponemos como tablemodel no editable. Conseguimos la fila seleccionada, si
+     * no hemos conseguido ninguna será -1. Conseguimos el nombre de la columna
+     * y lo pasamos a String. Creamos el objeto y añadimos la row. seteamos el
+     * modelo. Ahora lo que hacemos es de Ver Cliente borrar el Cliente pasado.
+     *
      * @return
      */
     public boolean pasarDeVerClienteAEscribir() {
@@ -154,7 +169,7 @@ public class CtrlIntroducirTrabajadoresClientes {
         row[0] = clienteSeleccionado;
         tmEscribirCliente.addRow(row);
         vista.getjTableEscribirClientes().setModel(tmEscribirCliente);
-        
+
         TableModelNoEditable tmVerCliente;
         tmVerCliente = (TableModelNoEditable) vista.getjTableVerCliente().getModel();
         tmVerCliente.removeRow(fila);
@@ -162,9 +177,11 @@ public class CtrlIntroducirTrabajadoresClientes {
         vista.getjTableEscribirClientes().repaint();
         return true;
     }
+
     /**
      * Lo mismo que pasarDeVerClienteAEscribir pero de al contrario.
-     * @return 
+     *
+     * @return
      */
     public boolean pasarDeEscribirClienteAVer() {
         TableModelNoEditable tmEscribirCliente = (TableModelNoEditable) vista.getjTableVerCliente().getModel();
@@ -177,7 +194,7 @@ public class CtrlIntroducirTrabajadoresClientes {
         row[0] = clienteSeleccionado;
         tmEscribirCliente.addRow(row);
         vista.getjTableVerCliente().setModel(tmEscribirCliente);
-        
+
         TableModelNoEditable tmVerCliente;
         tmVerCliente = (TableModelNoEditable) vista.getjTableEscribirClientes().getModel();
         tmVerCliente.removeRow(fila);

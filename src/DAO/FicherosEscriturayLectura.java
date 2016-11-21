@@ -123,11 +123,12 @@ public class FicherosEscriturayLectura {
      * @throws IOException
      */
     public void escribirFicheroTxtTrabajadores(String nombreFichero, String nombreTrabajador,
-            String DNI, String ocupacion) throws IOException {
+            String DNI, String ocupacion, ArrayList<Clientes> listaDClientes) throws IOException {
         /**
          * Declaramos todos los Ficheros. con el mkdir creamos el directorio.
          * Con el createNewFile creamos el Fichero
          */
+        String cadenaEscribir;
         File rutaPrincipal = new File("./Hoteles");
         File subruta = new File("./Hoteles/" + nombreFichero);
         File archivo = new File("./Hoteles/" + nombreFichero + "/" + nombreFichero + "Trabajadores.txt");
@@ -153,9 +154,13 @@ public class FicherosEscriturayLectura {
          * y creamos el file Writer dentro del Print Writer.
          */
         PrintWriter pw = new PrintWriter(new FileWriter(archivo, true)); //llama a la clase con la que escribiremos en el fichero de texto
-
+        cadenaEscribir = nombreTrabajador + "|" + DNI + "|" + ocupacion;
+        for (Clientes c : listaDClientes) {
+            String nombreCliente = c.getNombre();
+            cadenaEscribir = cadenaEscribir + "|" + nombreCliente;
+        }
         //Aqui escribiremos lo que queremos que escriba (guarde) en el fichero:;
-        pw.println(nombreFichero + "|" + DNI + "|" + ocupacion);
+        pw.println(cadenaEscribir);
         pw.close(); //Cerramos la clase printWriter
     }
 
@@ -403,15 +408,15 @@ public class FicherosEscriturayLectura {
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         /**
          * Escribimos el ArrayList dentro del fichero. Si no existe la
-         * listaDeTrabajadores se crea. se pasan por parametros los atributos y se
-         * crea la clase.
+         * listaDeTrabajadores se crea. se pasan por parametros los atributos y
+         * se crea la clase.
          */
 
         if (listaDeTrabajadores == null) {
             listaDeTrabajadores = new ArrayList<Trabajador>();
         }
         listaDeTrabajadores.add(new Trabajador(nombreTrabajador, DNI, ocupacion));
-        
+
         for (Trabajador c : listaDeTrabajadores) {
             oos.writeObject(listaDeTrabajadores);
         }
