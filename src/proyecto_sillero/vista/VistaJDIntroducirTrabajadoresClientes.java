@@ -348,8 +348,10 @@ public class VistaJDIntroducirTrabajadoresClientes extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Introducido Con Éxito","Mensaje", INFORMATION_MESSAGE);
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Error al guardar los datos.","ERROR", ERROR_MESSAGE);
+            System.out.println(ex);
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Error al guardar los datos.","ERROR", ERROR_MESSAGE);
+            System.out.println(ex);
         }
     }//GEN-LAST:event_jButtonAnnadirTrabajadorActionPerformed
 

@@ -137,4 +137,18 @@ public class CtrlVerTrabajadoresCargados {
             modeloTabla.addRow(columna);
         }
     }
+
+    public void listarClientesDeTrabajadores() {
+       String trabajadorSeleccionado = "ccccgbgbb";
+//        while (TMClientesEnTrabajadoresCargados.getRowCount() > 0) {
+  //          TMClientesEnTrabajadoresCargados.removeRow(0);
+    //    }
+        Object[] columna;
+        for(Trabajador t: FicherosEscriturayLectura.devolverFicherosEscritura().getListaDeTrabajadores()){
+            if(t.getNombre().equals(trabajadorSeleccionado)){
+                System.out.println("soy nombre"+t.getNombre());
+                System.out.println(t.getListaDeClientes().size());
+            }
+        }
+    }
 }

@@ -242,7 +242,7 @@ public class FicherosEscriturayLectura {
      * @throws IOException
      */
     public void escribirFicherosDatTrabajadores(String nombreFichero, String nombreTrabajador,
-            String DNI, String ocupacion) throws IOException {
+            String DNI, String ocupacion, ArrayList<Clientes> listaDClientes) throws IOException {
         /**
          * Declaramos todos los Ficheros. con el mkdir creamos el directorio.
          * Con el createNewFile creamos el Fichero
@@ -282,9 +282,12 @@ public class FicherosEscriturayLectura {
          * (guarde) en el fichero:
          */
         for (Trabajador t : listaDeTrabajadores) {
-            dos.writeUTF(nombreFichero);
+            dos.writeUTF(nombreTrabajador);
             dos.writeUTF(DNI);
             dos.writeUTF(ocupacion);
+                for(Clientes c: listaDClientes){
+                       dos.writeUTF(c.getNombre());
+                }
         }
         dos.close(); //Cerramos la clase printWriter    
     }
@@ -372,7 +375,7 @@ public class FicherosEscriturayLectura {
      * @throws IOException
      */
     public void escribirFicherosObjTrabajadores(String nombreFichero, String nombreTrabajador,
-            String DNI, String ocupacion) throws IOException, ClassNotFoundException {
+            String DNI, String ocupacion, ArrayList<Clientes> listaDClienteses) throws IOException, ClassNotFoundException {
         /**
          * Declaramos todos los Ficheros. con el mkdir creamos el directorio.
          * Con el createNewFile creamos el Fichero
@@ -415,7 +418,7 @@ public class FicherosEscriturayLectura {
         if (listaDeTrabajadores == null) {
             listaDeTrabajadores = new ArrayList<Trabajador>();
         }
-        listaDeTrabajadores.add(new Trabajador(nombreTrabajador, DNI, ocupacion));
+        listaDeTrabajadores.add(new Trabajador(nombreTrabajador, DNI, ocupacion, listaDClienteses));
 
         for (Trabajador c : listaDeTrabajadores) {
             oos.writeObject(listaDeTrabajadores);
@@ -732,6 +735,7 @@ public class FicherosEscriturayLectura {
          */
         fis = new FileInputStream(archivo);
         DataInputStream dis = new DataInputStream(fis);
+         listaDeClientes.removeAll(listaDeTrabajadores);
         do {
             try {
                 String nombreTrabajador = dis.readUTF();

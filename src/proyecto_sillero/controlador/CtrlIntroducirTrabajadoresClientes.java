@@ -72,7 +72,7 @@ public class CtrlIntroducirTrabajadoresClientes {
 
     /**
      * Recogemos el nombre de trabajador, dni, y ocupacion y lo guardamos.
-     *
+     * Tenemos el arrayList de Clientes, obtenemos de la tabla los clientes y los añadimos.
      * @throws IOException
      * @throws ClassNotFoundException
      */
@@ -83,8 +83,7 @@ public class CtrlIntroducirTrabajadoresClientes {
         //Recoger la tabla
         int nfila = vista.getjTableEscribirClientes().getRowCount();
         //String clienteSeleccionado = vista.getjTableEscribirClientes().getValueAt(fila, 0).toString();
-        //Recoger de la tabla los clientes.
-        //Lo primero es recoger todos las tablas.
+        //Creamos el arrayList Clientes.
         ArrayList<Clientes> listaDeClientes = new ArrayList<Clientes>();
         for (int i = 0; i < nfila; i++) {
             String clienteSeleccionado = vista.getjTableEscribirClientes().getValueAt(i, 0).toString();
@@ -96,8 +95,8 @@ public class CtrlIntroducirTrabajadoresClientes {
         }
 
         FicherosEscriturayLectura.devolverFicherosEscritura().escribirFicheroTxtTrabajadores(nombreHotel, nombreTrabajador, DNI, ocupacion, listaDeClientes);
-        FicherosEscriturayLectura.devolverFicherosEscritura().escribirFicherosDatTrabajadores(nombreHotel, nombreTrabajador, DNI, ocupacion);
-        FicherosEscriturayLectura.devolverFicherosEscritura().escribirFicherosObjTrabajadores(nombreHotel, nombreTrabajador, DNI, ocupacion);
+        FicherosEscriturayLectura.devolverFicherosEscritura().escribirFicherosDatTrabajadores(nombreHotel, nombreTrabajador, DNI, ocupacion, listaDeClientes);
+        FicherosEscriturayLectura.devolverFicherosEscritura().escribirFicherosObjTrabajadores(nombreHotel, nombreTrabajador, DNI, ocupacion, listaDeClientes);
 
     }
 
