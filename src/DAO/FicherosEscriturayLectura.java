@@ -715,6 +715,8 @@ public class FicherosEscriturayLectura {
          */
         //Creamos flag
         boolean flag = false;
+        //creamos arraylist
+        ArrayList<Clientes> listaDClientes = new ArrayList<Clientes>();
         File rutaPrincipal = new File("./Hoteles");
         File subruta = new File("./Hoteles/" + nombreFichero);
         File archivo = new File("./Hoteles/" + nombreFichero + "/" + nombreFichero + "Trabajadores.dat");
@@ -741,7 +743,11 @@ public class FicherosEscriturayLectura {
                 String nombreTrabajador = dis.readUTF();
                 String DNI = dis.readUTF();
                 String ocupacion = dis.readUTF();
-                Trabajador t = new Trabajador(nombreTrabajador, DNI, ocupacion);
+                for(Clientes c: listaDClientes){
+                    
+                }
+              
+                Trabajador t = new Trabajador(nombreTrabajador, DNI, ocupacion, listaDeClientes);
                 listaDeTrabajadores.add(t);
 
             } catch (EOFException e) {
