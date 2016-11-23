@@ -131,6 +131,7 @@ public class CtrlVerTrabajadoresCargados {
             System.out.println("Error al añadir cliente dat");
         }
         for (Trabajador t : FicherosEscriturayLectura.devolverFicherosEscritura().getListaDeTrabajadores()) {
+            System.out.println("holaaaaaaaaaaaaa"+t.getNombre());
             columna[0] = t.getNombre();
             columna[1] = t.getDNI();
             columna[2] = t.getOcupacion();

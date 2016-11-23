@@ -638,17 +638,25 @@ public class FicherosEscriturayLectura {
         //Aqui escribiremos lo que queremos que lea el fichero.
         listaDeTrabajadores.removeAll(listaDeTrabajadores);
         String cadenaTrabajadores = br.readLine();
-
         while (cadenaTrabajadores != null) {
             // guardamos cada dato del cliente en un array.
             String[] arrayDatosTrabajadores = cadenaTrabajadores.split("\\|");
-            Trabajador a = new Trabajador(arrayDatosTrabajadores[0], arrayDatosTrabajadores[1], arrayDatosTrabajadores[2]);
+            ArrayList<Clientes> listaDClientesEnTrabajadores = new ArrayList<Clientes>();
+            for(int i = 3; i<arrayDatosTrabajadores.length; i++){
+                for(Clientes c: getListaDeClientes()){
+                  if(arrayDatosTrabajadores[i].equals(c.getNombre())){
+                      listaDClientesEnTrabajadores.add(c);
+                  }  
+                }
+               
+          
+            }
+            Trabajador a = new Trabajador(arrayDatosTrabajadores[0], arrayDatosTrabajadores[1], arrayDatosTrabajadores[2], listaDClientesEnTrabajadores);
             //lo añadimos
             listaDeTrabajadores.add(a);
             cadenaTrabajadores = br.readLine();
         }
         br.close();
-
     }
 
     /**
@@ -743,11 +751,11 @@ public class FicherosEscriturayLectura {
                 String nombreTrabajador = dis.readUTF();
                 String DNI = dis.readUTF();
                 String ocupacion = dis.readUTF();
-                for(Clientes c: listaDClientes){
+               /* for(Clientes c: listaDClientes){
                     
                 }
-              
-                Trabajador t = new Trabajador(nombreTrabajador, DNI, ocupacion, listaDeClientes);
+              */
+                Trabajador t = new Trabajador(nombreTrabajador, DNI, ocupacion/*, listaDeClientes*/);
                 listaDeTrabajadores.add(t);
 
             } catch (EOFException e) {
