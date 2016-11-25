@@ -285,6 +285,7 @@ public class FicherosEscriturayLectura {
             dos.writeUTF(nombreTrabajador);
             dos.writeUTF(DNI);
             dos.writeUTF(ocupacion);
+            dos.writeInt(t.getListaDeClientes().size());
                 for(Clientes c: listaDClientes){
                        dos.writeUTF(c.getNombre());
                 }
@@ -648,8 +649,6 @@ public class FicherosEscriturayLectura {
                       listaDClientesEnTrabajadores.add(c);
                   }  
                 }
-               
-          
             }
             Trabajador a = new Trabajador(arrayDatosTrabajadores[0], arrayDatosTrabajadores[1], arrayDatosTrabajadores[2], listaDClientesEnTrabajadores);
             //lo añadimos
@@ -751,11 +750,17 @@ public class FicherosEscriturayLectura {
                 String nombreTrabajador = dis.readUTF();
                 String DNI = dis.readUTF();
                 String ocupacion = dis.readUTF();
-               /* for(Clientes c: listaDClientes){
-                    
+                int numeroDeClientesEnTrabajadores= dis.readInt();
+                ArrayList<Clientes> listaDClientesEnTrabajadores = new ArrayList<Clientes>();
+            for(int i = 0; i<numeroDeClientesEnTrabajadores; i++){
+                for(Clientes c: getListaDeClientes()){
+                  if(dis.readUTF().equals(c.getNombre())){
+                      listaDClientesEnTrabajadores.add(c);
+                  }  
                 }
-              */
-                Trabajador t = new Trabajador(nombreTrabajador, DNI, ocupacion/*, listaDeClientes*/);
+            }
+              
+                Trabajador t = new Trabajador(nombreTrabajador, DNI, ocupacion, listaDClientesEnTrabajadores);
                 listaDeTrabajadores.add(t);
 
             } catch (EOFException e) {

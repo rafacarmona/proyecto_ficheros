@@ -21,7 +21,7 @@ public class CtrlIntroducirTrabajadoresClientes {
     private VistaJDIntroducirTrabajadoresClientes vista;
     private TableModelNoEditable IntroducirVerHoteles;
     //probar creando otro TableNoModel
-    private TableModelNoEditable IntroducirVerHoteles2;
+    private TableModelNoEditable IntroducirVerHotelesTablaDos;
 
     public CtrlIntroducirTrabajadoresClientes(String nombreHotel) {
         this.nombreHotel = nombreHotel;
@@ -29,14 +29,14 @@ public class CtrlIntroducirTrabajadoresClientes {
         vista.setAnnadirClienteTrabajadorControlador(this);
         //Creamos tableModel
         IntroducirVerHoteles = new TableModelNoEditable();
-        IntroducirVerHoteles2 = new TableModelNoEditable();
+        IntroducirVerHotelesTablaDos = new TableModelNoEditable();
         vista.getjTableVerCliente().setModel(IntroducirVerHoteles);
         crearTablaClienteEnTrabajadores(IntroducirVerHoteles);
         listarClientesEnTrabajadores(IntroducirVerHoteles);
         //PRUEBA DE SEGUNDA TABLA.
 
-        vista.getjTableEscribirClientes().setModel(IntroducirVerHoteles2);
-        crearTablaEscribirClienteEnTrabajadores(IntroducirVerHoteles2);
+        vista.getjTableEscribirClientes().setModel(IntroducirVerHotelesTablaDos);
+        crearTablaEscribirClienteEnTrabajadores(IntroducirVerHotelesTablaDos);
         vista.setLocationRelativeTo(null);
         vista.setVisible(true);
     }

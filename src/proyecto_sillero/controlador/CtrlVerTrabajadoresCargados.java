@@ -7,6 +7,7 @@ package proyecto_sillero.controlador;
 
 import DAO.FicherosEscriturayLectura;
 import java.io.IOException;
+import proyecto_sillero.modelo.Clientes;
 import proyecto_sillero.modelo.Trabajador;
 import proyecto_sillero.vista.VistaJDVerTrabajadoresCargados;
 
@@ -19,8 +20,9 @@ public class CtrlVerTrabajadoresCargados {
     //Atributos
     String nombreFichero;
     //Table Model
-    private TableModelNoEditable TMClientesEnTrabajadoresCargados;
+    //private TableModelNoEditable TMClientesEnTrabajadoresCargados; //<-- pasarsele este table model a la segunda tabla
     private TableModelNoEditable TMTrabajadoresCargados;
+    private TableModelNoEditable TMClientesEnTrabajadores;
     //Vista
     private VistaJDVerTrabajadoresCargados vista;
 
@@ -36,11 +38,13 @@ public class CtrlVerTrabajadoresCargados {
         vista.setLocationRelativeTo(null);
         //Creamos el TableModel
         TMTrabajadoresCargados = new TableModelNoEditable();
+        TMClientesEnTrabajadores = new TableModelNoEditable();
         //Le decimos quien va a ser su modelo de tabla. en este caso será noEditable.
         vista.getjTableVerTrabajadores().setModel(TMTrabajadoresCargados);
-        //Listar CLientes y asignarColumnaVerClientes
+        vista.getjTableCargarClientesTrabajador().setModel(TMClientesEnTrabajadores);
+        // asignarColumnaVerClientes
         asignarColumnaVerTrabajadores(TMTrabajadoresCargados);
-
+        asignarColumnaVerClientesEnTrabajadores(TMClientesEnTrabajadores);
         //Según lo que pase (de 0 a 3) cargará un listar u otro.
         switch (extension) {
             case 0:
@@ -70,6 +74,10 @@ public class CtrlVerTrabajadoresCargados {
         modeloTabla.addColumn("Nombre");
         modeloTabla.addColumn("DNI");
         modeloTabla.addColumn("Ocupación");
+    }
+    
+        public void asignarColumnaVerClientesEnTrabajadores(TableModelNoEditable modeloTabla) {
+        modeloTabla.addColumn("Nombre");
     }
 
     public void listarTrabajadoresObj(TableModelNoEditable modeloTabla) {
@@ -131,7 +139,7 @@ public class CtrlVerTrabajadoresCargados {
             System.out.println("Error al añadir cliente dat");
         }
         for (Trabajador t : FicherosEscriturayLectura.devolverFicherosEscritura().getListaDeTrabajadores()) {
-            System.out.println("holaaaaaaaaaaaaa"+t.getNombre());
+            // System.out.println("holaaaaaaaaaaaaa"+t.getNombre());
             columna[0] = t.getNombre();
             columna[1] = t.getDNI();
             columna[2] = t.getOcupacion();
@@ -139,17 +147,31 @@ public class CtrlVerTrabajadoresCargados {
         }
     }
 
-    public void listarClientesDeTrabajadores() {
-       String trabajadorSeleccionado = "ccccgbgbb";
-//        while (TMClientesEnTrabajadoresCargados.getRowCount() > 0) {
-  //          TMClientesEnTrabajadoresCargados.removeRow(0);
-    //    }
-        Object[] columna;
-        for(Trabajador t: FicherosEscriturayLectura.devolverFicherosEscritura().getListaDeTrabajadores()){
-            if(t.getNombre().equals(trabajadorSeleccionado)){
-                System.out.println("soy nombre"+t.getNombre());
-                System.out.println(t.getListaDeClientes().size());
+    public boolean listarClientesDeTrabajadores() {
+        //Creamos el modelo tabla.
+        TableModelNoEditable modeloTabla = (TableModelNoEditable) vista.getjTableCargarClientesTrabajador().getModel();
+        //borra los registros de la tabla y los vuelve a rellenar
+        while (modeloTabla.getRowCount() > 0) {
+            modeloTabla.removeRow(0);
+        }
+        int fila = vista.getjTableVerTrabajadores().getSelectedRow();
+        if (fila == -1) {
+            return false;
+        }
+        Object[] columna = new Object[1];
+
+        String trabajadorSeleccionado = vista.getjTableVerTrabajadores().getValueAt(fila, 0).toString();
+        for (Trabajador t : FicherosEscriturayLectura.devolverFicherosEscritura().getListaDeTrabajadores()) {
+            if (t.getNombre().equals(trabajadorSeleccionado)) {
+                for (Clientes c : t.getListaDeClientes()) {
+                    columna[0] = c.getNombre();
+                    modeloTabla.addRow(columna);
+                }
             }
         }
+        vista.getjTableCargarClientesTrabajador().setModel(modeloTabla);
+        vista.getjTableCargarClientesTrabajador().repaint();
+   
+        return true;
     }
 }
