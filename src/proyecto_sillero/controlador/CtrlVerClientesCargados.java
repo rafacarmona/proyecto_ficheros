@@ -5,8 +5,13 @@
  */
 package proyecto_sillero.controlador;
 
+import DAO.EscrituraYLecturaFicheroXML;
 import DAO.FicherosEscriturayLectura;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.parsers.ParserConfigurationException;
+import org.xml.sax.SAXException;
 import proyecto_sillero.modelo.Clientes;
 import proyecto_sillero.vista.VistaJDVerClientesCargados;
 
@@ -45,8 +50,8 @@ public class CtrlVerClientesCargados {
                 break;
             case 2: listarClientesDat(TMClientesCargados);
                 break;
-            case 3: //xml
-                break;
+            case 3: listarClientesXML(TMClientesCargados);
+                break; 
             default:
                 break;
         }
@@ -144,6 +149,30 @@ public class CtrlVerClientesCargados {
         }
     }
     
+        public void listarClientesXML(TableModelNoEditable modeloTabla){
+        //borra los registros de la tabla y los vuelve a rellenar
+        while(modeloTabla.getRowCount()>0){
+            modeloTabla.removeRow(0);
+        }
+        //Creamos numero de columnas que habrá:
+        Object[] columna = new Object[4];
+        try {
+            EscrituraYLecturaFicheroXML.devolverFicherosEscrituraXML().leerFicheroClientesXML(nombreFichero);
+        } catch (IOException ex) {
+            System.out.println("Error al añadir cliente xml");
+        } catch (ParserConfigurationException ex) {
+            System.out.println(ex);
+        } catch (SAXException ex) {
+            System.out.println(ex);
+        }
+        for(Clientes c: FicherosEscriturayLectura.devolverFicherosEscritura().getListaDeClientes()){
+            columna[0] = c.getNombre();
+            columna[1] = c.getDNI();
+            columna[2] = c.getNHabitacion();
+            columna[3] = c.getNNoches();
+            modeloTabla.addRow(columna);
+        }
+    }
     
     
 }

@@ -5,10 +5,6 @@
  */
 package proyecto_sillero.controlador;
 
-import DAO.FicherosEscriturayLectura;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -94,6 +90,7 @@ public class CtrlJFileChooser {
 
                         break;
                     case ".xml":
+                        new CtrlVerClientesCargados(nombreFichero, 3);
                         break;
                     default:
                         System.out.println("Error, esa extension no es válida.");
