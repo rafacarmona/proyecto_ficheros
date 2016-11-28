@@ -10,8 +10,6 @@ import proyecto_sillero.vista.VistaJDIntroducirTrabajadoresClientes;
 import DAO.FicherosEscriturayLectura;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.transform.TransformerException;
 import proyecto_sillero.modelo.Clientes;
 
@@ -102,10 +100,9 @@ public class CtrlIntroducirTrabajadoresClientes {
                 }
             }
         }
-
         FicherosEscriturayLectura.devolverFicherosEscritura().escribirFicheroTxtTrabajadores(nombreHotel, nombreTrabajador, DNI, ocupacion, listaDeClientes);
-        FicherosEscriturayLectura.devolverFicherosEscritura().escribirFicherosDatTrabajadores(nombreHotel, nombreTrabajador, DNI, ocupacion, listaDeClientes);
         FicherosEscriturayLectura.devolverFicherosEscritura().escribirFicherosObjTrabajadores(nombreHotel, nombreTrabajador, DNI, ocupacion, listaDeClientes);
+        FicherosEscriturayLectura.devolverFicherosEscritura().escribirFicherosDatTrabajadores(nombreHotel, nombreTrabajador, DNI, ocupacion, listaDeClientes);
         try {
             EscrituraYLecturaFicheroXML.devolverFicherosEscrituraXML().escribirFicheroTrabajadoresXML(nombreHotel);
         } catch (TransformerException ex) {

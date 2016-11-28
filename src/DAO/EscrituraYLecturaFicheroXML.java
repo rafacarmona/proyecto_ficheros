@@ -307,9 +307,9 @@ public class EscrituraYLecturaFicheroXML {
 
             }
             listaDeClientesXML.add(new Clientes(nombre, dni, nHabitacion, nNoches));
-
+            
         }
-
+        FicherosEscriturayLectura.devolverFicherosEscritura().setListaDeClientes(listaDeClientesXML);
         return true;
     }
 /*

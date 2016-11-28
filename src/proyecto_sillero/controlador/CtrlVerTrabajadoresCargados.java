@@ -127,8 +127,8 @@ public class CtrlVerTrabajadoresCargados {
     }
 
     public void listarTrabajadoresDat(TableModelNoEditable modeloTabla) {
-        //borra los registros de la tabla y los vuelve a rellenar
-        while (modeloTabla.getRowCount() > 0) {
+      //borra los registros de la tabla y los vuelve a rellenar
+        while(modeloTabla.getRowCount()>0){
             modeloTabla.removeRow(0);
         }
         //Creamos numero de columnas que habrá:
@@ -136,10 +136,9 @@ public class CtrlVerTrabajadoresCargados {
         try {
             FicherosEscriturayLectura.devolverFicherosEscritura().leerFicherosDatTrabajadores(nombreFichero);
         } catch (IOException ex) {
-            System.out.println("Error al añadir cliente dat");
+            System.out.println("Error al añadir Trabajadores Dat");
         }
-        for (Trabajador t : FicherosEscriturayLectura.devolverFicherosEscritura().getListaDeTrabajadores()) {
-            // System.out.println("holaaaaaaaaaaaaa"+t.getNombre());
+        for(Trabajador t: FicherosEscriturayLectura.devolverFicherosEscritura().getListaDeTrabajadores()){
             columna[0] = t.getNombre();
             columna[1] = t.getDNI();
             columna[2] = t.getOcupacion();

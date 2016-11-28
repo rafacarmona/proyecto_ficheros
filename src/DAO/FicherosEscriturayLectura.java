@@ -242,7 +242,7 @@ public class FicherosEscriturayLectura {
      * @throws IOException
      */
     public void escribirFicherosDatTrabajadores(String nombreFichero, String nombreTrabajador,
-            String DNI, String ocupacion, ArrayList<Clientes> listaDClientes) throws IOException {
+            String DNI, String ocupacion, ArrayList<Clientes> listaDClientes) throws IOException, ClassNotFoundException {
         /**
          * Declaramos todos los Ficheros. con el mkdir creamos el directorio.
          * Con el createNewFile creamos el Fichero
@@ -281,6 +281,10 @@ public class FicherosEscriturayLectura {
          * Int para enteros, etc. Aqui escribiremos lo que queremos que escriba
          * (guarde) en el fichero:
          */
+        /**
+         * prueba de leer fichero, borrar luego.
+         */
+        leerFicherosObjTrabajadores(nombreFichero);
         for (Trabajador t : listaDeTrabajadores) {
             dos.writeUTF(nombreTrabajador);
             dos.writeUTF(DNI);
@@ -745,7 +749,7 @@ public class FicherosEscriturayLectura {
          */
         fis = new FileInputStream(archivo);
         DataInputStream dis = new DataInputStream(fis);
-         listaDeClientes.removeAll(listaDeTrabajadores);
+         listaDeTrabajadores.removeAll(listaDeTrabajadores);
         do {
             try {
                 String nombreTrabajador = dis.readUTF();
