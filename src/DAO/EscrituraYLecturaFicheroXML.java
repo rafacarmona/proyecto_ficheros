@@ -54,7 +54,6 @@ public class EscrituraYLecturaFicheroXML {
         }
     }
 
-  
     /*
     Fin Singleton
      */
@@ -91,8 +90,8 @@ public class EscrituraYLecturaFicheroXML {
             Document document = implementation.createDocument(null, "HOTELES", null);
             //le decimos que versión de xml es.
             document.setXmlVersion("1.0");
-            
-            if(archivo.length() > 0){
+
+            if (archivo.length() > 0) {
                 try {
                     leerFicheroClientesXML(nombreFichero);
                 } catch (SAXException ex) {
@@ -222,14 +221,16 @@ public class EscrituraYLecturaFicheroXML {
                     TrabajadoresNode.appendChild(DNITrabajadorNode);
                     TrabajadoresNode.appendChild(ocupacionTrabajadorNode);
                     //listamos los clientes que pertenece a cada trabajador.
+                     Element ClientesEnTrabajadoresNode = document.createElement("CLIENTESQUEATIENDEELTRABAJADOR");
                     for (Clientes ct : t.getListaDeClientes()) {
-                        Element ClienteTrabajadorNode = document.createElement("CLIENTESQUEATIENDEELTRABAJADOR");
-                        Text oClienteTrabajadorNodeValue = document.createTextNode(ct.getNombre());
-                        ClienteTrabajadorNode.appendChild(oClienteTrabajadorNodeValue);
+                        Element ClienteTrabajadorNode = document.createElement("CLIENTE");
+                        Text ClienteTrabajadorNodeValue = document.createTextNode(ct.getNombre());
+                        ClienteTrabajadorNode.appendChild(ClienteTrabajadorNodeValue);
 
                         //le asignamos el nodo
-                        TrabajadoresNode.appendChild(ClienteTrabajadorNode);
+                        ClientesEnTrabajadoresNode.appendChild(ClienteTrabajadorNode);
                     }
+                    TrabajadoresNode.appendChild(ClientesEnTrabajadoresNode);
 
                 }
                 //Lo añadimos a hoteles.
@@ -307,12 +308,13 @@ public class EscrituraYLecturaFicheroXML {
 
             }
             listaDeClientesXML.add(new Clientes(nombre, dni, nHabitacion, nNoches));
-            
+
         }
         FicherosEscriturayLectura.devolverFicherosEscritura().setListaDeClientes(listaDeClientesXML);
         return true;
     }
-/*
+    
+    
     public boolean leerFicheroTrabajadoresXML(String nombreFichero) throws ParserConfigurationException, SAXException, IOException {
         File rutaPrincipal = new File("./Hoteles");
         File subruta = new File("./Hoteles/" + nombreFichero);
@@ -357,35 +359,13 @@ public class EscrituraYLecturaFicheroXML {
                 if (atributosTrabajadores.getNodeName().equals("OCUPACIONTRABAJADOR")) {
                     nombre = atributosTrabajadores.getTextContent();
                 }
-                if (atributosTrabajadores.getNodeName().equals("CLIENTESQUEATIENDEELTRABAJADOR")) {
-                    NodeList NodeListClientesEnTrabajadores = atributosTrabajadores.getChildNodes();
-                    Node clientesEnTrabajadoresNode;
-                    for (int k = 0; k < NodeListClientesEnTrabajadores.getLength(); k++) {
-                        clientesEnTrabajadoresNode = NodeListClientesEnTrabajadores.item(k);
-                        if (clientesEnTrabajadoresNode.getNodeName().equals("CLIENTESQUEATIENDEELTRABAJADOR")) {
-                            NodeList listaNodoArt = clientesEnTrabajadoresNode.getChildNodes();
-                            Node nodoArt;
-                            String nombreArt = null, descripcionArt = null;
-                            int idArt = 0;
-                            double precio = 0;
-                            for (int l = 0; l < listaNodoArt.getLength(); l++) {
-                                nodoArt = listaNodoArt.item(l);
-                                NodeList atributosArt = nodoArt.getChildNodes();
-                                Node atribArt;
-                            }
-                            arrayArticulos.add(new Articulo(idArt, id, nombre, descripcionArt, precio));
-
-                        }
-                    }
-
-                }
+          
                 listaDeTrabajadoresXML.add(new Trabajador(nombre, dni, ocupacion));
 
             }
 
-            
         }
-    return true;
+        return true;
     }
-    */
-    }
+
+}
