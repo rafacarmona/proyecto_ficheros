@@ -641,6 +641,7 @@ public class FicherosEscriturayLectura {
         String cadenaTrabajadores = br.readLine();
         while (cadenaTrabajadores != null) {
             // guardamos cada dato del cliente en un array.
+            leerFicheroTxtClientes(nombreFichero);
             String[] arrayDatosTrabajadores = cadenaTrabajadores.split("\\|");
             ArrayList<Clientes> listaDClientesEnTrabajadores = new ArrayList<Clientes>();
             for(int i = 3; i<arrayDatosTrabajadores.length; i++){
