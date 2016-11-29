@@ -5,8 +5,13 @@
  */
 package proyecto_sillero.controlador;
 
+import DAO.EscrituraYLecturaFicheroXML;
 import DAO.FicherosEscriturayLectura;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.parsers.ParserConfigurationException;
+import org.xml.sax.SAXException;
 import proyecto_sillero.modelo.Clientes;
 import proyecto_sillero.modelo.Trabajador;
 import proyecto_sillero.vista.VistaJDVerTrabajadoresCargados;
@@ -25,9 +30,11 @@ public class CtrlVerTrabajadoresCargados {
     private TableModelNoEditable TMClientesEnTrabajadores;
     //Vista
     private VistaJDVerTrabajadoresCargados vista;
+    private int extension;
 
     //Ctrl
     public CtrlVerTrabajadoresCargados(String nombreFichero, int extension) {
+        this.extension = extension;
         //Asignamos el nombre pasado por parámetro al de la clase.
         this.nombreFichero = nombreFichero;
         //Creamos la vista lo primero
@@ -56,7 +63,8 @@ public class CtrlVerTrabajadoresCargados {
             case 2:
                 listarTrabajadoresDat(TMTrabajadoresCargados);
                 break;
-            case 3: //xml
+            case 3:
+                listarTrabajadoresXML(TMTrabajadoresCargados);
                 break;
             default:
                 break;
@@ -75,8 +83,8 @@ public class CtrlVerTrabajadoresCargados {
         modeloTabla.addColumn("DNI");
         modeloTabla.addColumn("Ocupación");
     }
-    
-        public void asignarColumnaVerClientesEnTrabajadores(TableModelNoEditable modeloTabla) {
+
+    public void asignarColumnaVerClientesEnTrabajadores(TableModelNoEditable modeloTabla) {
         modeloTabla.addColumn("Nombre");
     }
 
@@ -127,8 +135,8 @@ public class CtrlVerTrabajadoresCargados {
     }
 
     public void listarTrabajadoresDat(TableModelNoEditable modeloTabla) {
-      //borra los registros de la tabla y los vuelve a rellenar
-        while(modeloTabla.getRowCount()>0){
+        //borra los registros de la tabla y los vuelve a rellenar
+        while (modeloTabla.getRowCount() > 0) {
             modeloTabla.removeRow(0);
         }
         //Creamos numero de columnas que habrá:
@@ -138,7 +146,31 @@ public class CtrlVerTrabajadoresCargados {
         } catch (IOException ex) {
             System.out.println("Error al añadir Trabajadores Dat");
         }
-        for(Trabajador t: FicherosEscriturayLectura.devolverFicherosEscritura().getListaDeTrabajadores()){
+        for (Trabajador t : FicherosEscriturayLectura.devolverFicherosEscritura().getListaDeTrabajadores()) {
+            columna[0] = t.getNombre();
+            columna[1] = t.getDNI();
+            columna[2] = t.getOcupacion();
+            modeloTabla.addRow(columna);
+        }
+    }
+
+    public void listarTrabajadoresXML(TableModelNoEditable modeloTabla) {
+        //borra los registros de la tabla y los vuelve a rellenar
+        while (modeloTabla.getRowCount() > 0) {
+            modeloTabla.removeRow(0);
+        }
+        //Creamos numero de columnas que habrá:
+        Object[] columna = new Object[3];
+        try {
+            EscrituraYLecturaFicheroXML.devolverFicherosEscrituraXML().leerFicheroTrabajadoresXML(nombreFichero);
+        } catch (IOException ex) {
+            System.out.println("Error al añadir cliente XML");
+        } catch (ParserConfigurationException ex) {
+            System.out.println("ERROR XML : " + ex);
+        } catch (SAXException ex) {
+            System.out.println("ERROR XML : " + ex);
+        }
+        for (Trabajador t : EscrituraYLecturaFicheroXML.devolverFicherosEscrituraXML().getListaDeTrabajadoresXML()) {
             columna[0] = t.getNombre();
             columna[1] = t.getDNI();
             columna[2] = t.getOcupacion();
@@ -160,17 +192,37 @@ public class CtrlVerTrabajadoresCargados {
         Object[] columna = new Object[1];
 
         String trabajadorSeleccionado = vista.getjTableVerTrabajadores().getValueAt(fila, 0).toString();
-        for (Trabajador t : FicherosEscriturayLectura.devolverFicherosEscritura().getListaDeTrabajadores()) {
-            if (t.getNombre().equals(trabajadorSeleccionado)) {
-                for (Clientes c : t.getListaDeClientes()) {
-                    columna[0] = c.getNombre();
-                    modeloTabla.addRow(columna);
+        if (extension != 3) {
+            /**
+             * Este for lee los ficheros normales.
+             */
+            for (Trabajador t : FicherosEscriturayLectura.devolverFicherosEscritura().getListaDeTrabajadores()) {
+                if (t.getNombre().equals(trabajadorSeleccionado)) {
+                    for (Clientes c : t.getListaDeClientes()) {
+                        columna[0] = c.getNombre();
+                        modeloTabla.addRow(columna);
+                    }
+                }
+            }
+        }
+
+        if (extension == 3) {
+            /**
+             * Este for es para el xml.
+             */
+            for (Trabajador t : EscrituraYLecturaFicheroXML.devolverFicherosEscrituraXML().getListaDeTrabajadoresXML()) {
+                if (t.getNombre().equals(trabajadorSeleccionado)) {
+                    for (Clientes c : t.getListaDeClientes()) {
+                        columna[0] = c.getNombre();
+                        modeloTabla.addRow(columna);
+                    }
                 }
             }
         }
         vista.getjTableCargarClientesTrabajador().setModel(modeloTabla);
         vista.getjTableCargarClientesTrabajador().repaint();
-   
+
         return true;
     }
+
 }

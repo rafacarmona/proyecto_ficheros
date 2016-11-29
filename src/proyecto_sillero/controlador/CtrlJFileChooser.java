@@ -108,7 +108,7 @@ public class CtrlJFileChooser {
                     case ".obj":
                         new CtrlVerTrabajadoresCargados(nombreFichero, 0);
                         break;
-                    case ".xml":
+                    case ".xml": new CtrlVerTrabajadoresCargados(nombreFichero, 3);
                         break;
                     default:
                         System.out.println("Error, esa extension no es válida.");

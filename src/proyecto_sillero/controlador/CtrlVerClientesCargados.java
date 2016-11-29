@@ -8,8 +8,6 @@ package proyecto_sillero.controlador;
 import DAO.EscrituraYLecturaFicheroXML;
 import DAO.FicherosEscriturayLectura;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 import proyecto_sillero.modelo.Clientes;
@@ -165,7 +163,7 @@ public class CtrlVerClientesCargados {
         } catch (SAXException ex) {
             System.out.println(ex);
         }
-        for(Clientes c: FicherosEscriturayLectura.devolverFicherosEscritura().getListaDeClientes()){
+        for(Clientes c: EscrituraYLecturaFicheroXML.devolverFicherosEscrituraXML().getListaDeClientesXML()){
             columna[0] = c.getNombre();
             columna[1] = c.getDNI();
             columna[2] = c.getNHabitacion();

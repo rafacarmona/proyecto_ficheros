@@ -6,12 +6,8 @@
 package DAO;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -39,6 +35,8 @@ import proyecto_sillero.modelo.Trabajador;
  */
 public class EscrituraYLecturaFicheroXML {
 
+    private ArrayList<Clientes> listaDeClientesXML = new ArrayList<Clientes>();
+    private ArrayList<Trabajador> listaDeTrabajadoresXML = new ArrayList<Trabajador>();
     /*
     SINGLETON.
      */
@@ -90,14 +88,14 @@ public class EscrituraYLecturaFicheroXML {
             Document document = implementation.createDocument(null, "HOTELES", null);
             //le decimos que versión de xml es.
             document.setXmlVersion("1.0");
-
+            /*
             if (archivo.length() > 0) {
                 try {
                     leerFicheroClientesXML(nombreFichero);
                 } catch (SAXException ex) {
                     System.out.println(ex);
                 }
-            }
+            }*/
             //Definimos el elemento Raíz.
             Element elementoRaiz = document.getDocumentElement();
             //Definimos La primera etiqueta, que es Hoteles.
@@ -221,7 +219,7 @@ public class EscrituraYLecturaFicheroXML {
                     TrabajadoresNode.appendChild(DNITrabajadorNode);
                     TrabajadoresNode.appendChild(ocupacionTrabajadorNode);
                     //listamos los clientes que pertenece a cada trabajador.
-                     Element ClientesEnTrabajadoresNode = document.createElement("CLIENTESQUEATIENDEELTRABAJADOR");
+                    Element ClientesEnTrabajadoresNode = document.createElement("CLIENTESQUEATIENDEELTRABAJADOR");
                     for (Clientes ct : t.getListaDeClientes()) {
                         Element ClienteTrabajadorNode = document.createElement("CLIENTE");
                         Text ClienteTrabajadorNodeValue = document.createTextNode(ct.getNombre());
@@ -266,8 +264,7 @@ public class EscrituraYLecturaFicheroXML {
             return false;
         }
         //inicializamos el arraylist.
-        ArrayList<Clientes> listaDeClientesXML = new ArrayList<Clientes>();
-
+        listaDeClientesXML.removeAll(listaDeClientesXML);
         //Cargamos el archivo xml-
         DocumentBuilderFactory cargarArchivoFactory = DocumentBuilderFactory.newInstance();
         //instanciamos
@@ -291,8 +288,8 @@ public class EscrituraYLecturaFicheroXML {
             int nHabitacion = 0;
             int nNoches = 0;
 
-            for (int j = 0; j < NodeListClientes.getLength(); j++) {
-                atributosClientes = NodeListClientes.item(j);
+            for (int x = 0; x < NodeListClientes.getLength(); x++) {
+                atributosClientes = NodeListClientes.item(x);
                 if (atributosClientes.getNodeName().equals("NOMBRECLIENTE")) {
                     nombre = atributosClientes.getTextContent();
                 }
@@ -304,17 +301,15 @@ public class EscrituraYLecturaFicheroXML {
                 }
                 if (atributosClientes.getNodeName().equals("NNOCHES")) {
                     nNoches = Integer.parseInt(atributosClientes.getTextContent());
-                }
-
+                    listaDeClientesXML.add(new Clientes(nombre, dni, nHabitacion, nNoches));                }
             }
-            listaDeClientesXML.add(new Clientes(nombre, dni, nHabitacion, nNoches));
+           
+            
 
         }
-        FicherosEscriturayLectura.devolverFicherosEscritura().setListaDeClientes(listaDeClientesXML);
         return true;
     }
-    
-    
+
     public boolean leerFicheroTrabajadoresXML(String nombreFichero) throws ParserConfigurationException, SAXException, IOException {
         File rutaPrincipal = new File("./Hoteles");
         File subruta = new File("./Hoteles/" + nombreFichero);
@@ -324,8 +319,8 @@ public class EscrituraYLecturaFicheroXML {
             return false;
         }
         //inicializamos el arraylist.
-        ArrayList<Trabajador> listaDeTrabajadoresXML = new ArrayList<Trabajador>();
-        ArrayList<Clientes> listaDeClientesXML = new ArrayList<Clientes>();
+        listaDeTrabajadoresXML.removeAll(listaDeTrabajadoresXML);
+        ArrayList<Clientes> listaDeClientesEnTrabajadoresXML = new ArrayList<Clientes>();
         //Cargamos el archivo xml
         DocumentBuilderFactory cargarArchivoFactory = DocumentBuilderFactory.newInstance();
         //instanciamos
@@ -357,11 +352,39 @@ public class EscrituraYLecturaFicheroXML {
                     dni = atributosTrabajadores.getTextContent();
                 }
                 if (atributosTrabajadores.getNodeName().equals("OCUPACIONTRABAJADOR")) {
-                    nombre = atributosTrabajadores.getTextContent();
+                    ocupacion = atributosTrabajadores.getTextContent();
                 }
-                
-          
-                listaDeTrabajadoresXML.add(new Trabajador(nombre, dni, ocupacion));
+                if (atributosTrabajadores.getNodeName().equals("CLIENTESQUEATIENDEELTRABAJADOR")) {
+                    NodeList ClientesNodeList = atributosTrabajadores.getChildNodes();
+                    Node clientesNode;
+                    for (int x = 0; x < ClientesNodeList.getLength(); x++) {
+                        clientesNode = ClientesNodeList.item(x);
+                        if (clientesNode.getNodeName().equals("CLIENTE")) {
+                            String nombreCliente = null;
+                            String dniCliente = null;
+                            int nHbitacion = 0;
+                            int nNoches = 0;
+                            nombreCliente = clientesNode.getTextContent();
+                            //qyutar sout
+                            System.out.println(nombreCliente);
+                            for (Trabajador t : listaDeTrabajadoresXML) {
+                                if (nombre.equals(t.getNombre())) {
+                                    for (Clientes ct : t.getListaDeClientes()) {
+                                        if (nombreCliente.equals(ct.getNombre())) {
+                                            dniCliente = ct.getDNI();
+                                            nHbitacion = ct.getNHabitacion();
+                                            nNoches = ct.getNNoches();
+                                        }
+                                    }
+                                }
+
+                            }
+                            listaDeClientesEnTrabajadoresXML.add(new Clientes(nombreCliente, dniCliente, nHbitacion, nNoches));
+                        }
+                    }
+                    listaDeTrabajadoresXML.add(new Trabajador(nombre, dni, ocupacion, listaDeClientesEnTrabajadoresXML));
+
+                }
 
             }
 
@@ -369,4 +392,19 @@ public class EscrituraYLecturaFicheroXML {
         return true;
     }
 
+    public ArrayList<Clientes> getListaDeClientesXML() {
+        return listaDeClientesXML;
+    }
+
+    public void setListaDeClientesXML(ArrayList<Clientes> listaDeClientesXML) {
+        this.listaDeClientesXML = listaDeClientesXML;
+    }
+
+    public ArrayList<Trabajador> getListaDeTrabajadoresXML() {
+        return listaDeTrabajadoresXML;
+    }
+
+    public void setListaDeTrabajadoresXML(ArrayList<Trabajador> listaDeTrabajadoresXML) {
+        this.listaDeTrabajadoresXML = listaDeTrabajadoresXML;
+    }
 }
