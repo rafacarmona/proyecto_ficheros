@@ -301,10 +301,9 @@ public class EscrituraYLecturaFicheroXML {
                 }
                 if (atributosClientes.getNodeName().equals("NNOCHES")) {
                     nNoches = Integer.parseInt(atributosClientes.getTextContent());
-                    listaDeClientesXML.add(new Clientes(nombre, dni, nHabitacion, nNoches));                }
+                    listaDeClientesXML.add(new Clientes(nombre, dni, nHabitacion, nNoches));
+                }
             }
-           
-            
 
         }
         return true;
@@ -365,20 +364,20 @@ public class EscrituraYLecturaFicheroXML {
                             int nHbitacion = 0;
                             int nNoches = 0;
                             nombreCliente = clientesNode.getTextContent();
-                            //qyutar sout
-                            System.out.println(nombreCliente);
+                            //aqui no entra
+                            
                             for (Trabajador t : listaDeTrabajadoresXML) {
-                                if (nombre.equals(t.getNombre())) {
-                                    for (Clientes ct : t.getListaDeClientes()) {
-                                        if (nombreCliente.equals(ct.getNombre())) {
-                                            dniCliente = ct.getDNI();
-                                            nHbitacion = ct.getNHabitacion();
-                                            nNoches = ct.getNNoches();
-                                        }
+
+                                for (Clientes ct : t.getListaDeClientes()) {
+                                    if (nombreCliente.equals(ct.getNombre())) {
+                                        dniCliente = ct.getDNI();
+                                        nHbitacion = ct.getNHabitacion();
+                                        nNoches = ct.getNNoches();
                                     }
                                 }
 
                             }
+                            
                             listaDeClientesEnTrabajadoresXML.add(new Clientes(nombreCliente, dniCliente, nHbitacion, nNoches));
                         }
                     }
