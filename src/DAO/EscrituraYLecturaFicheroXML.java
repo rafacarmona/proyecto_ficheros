@@ -359,6 +359,7 @@ public class EscrituraYLecturaFicheroXML {
                 if (atributosTrabajadores.getNodeName().equals("OCUPACIONTRABAJADOR")) {
                     nombre = atributosTrabajadores.getTextContent();
                 }
+                
           
                 listaDeTrabajadoresXML.add(new Trabajador(nombre, dni, ocupacion));
 
